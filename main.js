@@ -163,5 +163,28 @@ if (process.env.NODE_ENV !== 'production'){
 }
 
 
+// main.js
+const { Deeplink } = require('electron-deeplink');
+const { exit } = require('process');
 
+let isDev = false
+
+const protocol = isDev ? 'dev-app' : 'edpapp';
+const deeplink = new Deeplink({ app, mainWindow, protocol, isDev });
+
+deeplink.on('received', (link) => {
+    try {
+        cookie = Buffer.from(link.split("?")[1], 'base64').toString()
+    }
+    catch(err) {
+        console.log("URL decoding failed!")
+        exit()
+    }
+
+
+    console.log(cookie)
+    
+    // Het cookie variable moet met alle requests naar het API mee gestuurd worden met de naam google-login-session
+
+});
 
