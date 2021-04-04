@@ -1,0 +1,22 @@
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DesignerTies/app.git"
+  },
+  "author": "Ties Hoenderdos, Sem Pas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DesignerTies/app/issues"
+  },
+  "homepage": "https://github.com/DesignerTies/app#readme",
+  "dependencies": {
+    "electron": "^11.3.0"
+  }
+}

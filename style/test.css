@@ -1,0 +1,10 @@
+#pijltje-terug {
+  height: 50px;
+  width: 50px;
+  background-image: url("../img/pijltje-terug.png");
+  background-size: cover;
+}
+
+h1 {
+  text-align: center;
+}

@@ -1,0 +1,65 @@
+#logo {
+  height: 200px;
+  width: 200px;
+  margin-left: 2rem;
+  background-image: url("../img/logo.png");
+  background-size: cover;
+  background-color: #fff;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+#test {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin: 1rem;
+  border: 1px solid gray;
+  background-color: aliceblue;
+}
+
+.card h1 {
+  margin: 1em;
+  background-color: rgb(230, 230, 230);
+  text-align: center;
+}
+
+.card p {
+  padding-right: 1rem;
+  padding-left: 1rem;
+  padding-top: 0.7rem;
+}
+
+.kruisje {
+  float: right;
+  padding: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-image: url("../img/kruisje.png");
+  background-size: cover;
+  visibility: hidden;
+}
+
+@media screen and (min-width: 600px) {
+  .card {
+    flex: 1 1 calc(50% - 2rem);
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .card {
+    flex: 1 1 calc(33% - 2rem);
+  }
+}

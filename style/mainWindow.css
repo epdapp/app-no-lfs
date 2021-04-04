@@ -1,0 +1,70 @@
+* {
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+
+body {
+  background-color: rgb(241, 241, 241);
+}
+
+p {
+  font-family: "Roboto", sans-serif;
+}
+
+h2 {
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  border: none;
+}
+
+header {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-style: solid;
+  border-width: 1px;
+}
+
+header p {
+  padding-left: 8em;
+}
+
+main {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+main button {
+  cursor: pointer;
+  margin: 3em;
+  width: 290px;
+  height: 290px;
+  border-radius: 2em;
+}
+
+.blokjes {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 290px;
+  height: 290px;
+  border-radius: 2em;
+}
+
+.blokjes p {
+  padding-bottom: 1em;
+}
+
+#dossier-toevoegen {
+  background-image: url(../img/plus.png);
+}
+
+#dossier-zoeken {
+  background-image: url(../img/vergrootglas.png);
+}
