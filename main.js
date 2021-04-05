@@ -169,7 +169,7 @@ const { exit } = require('process');
 
 let isDev = false
 
-const protocol = isDev ? 'dev-app' : 'edpapp';
+const protocol = isDev ? 'dev-app' : 'epdapp';
 const deeplink = new Deeplink({ app, mainWindow, protocol, isDev });
 
 deeplink.on('received', (link) => {
