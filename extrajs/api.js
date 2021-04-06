@@ -2,14 +2,18 @@ const { ipcRenderer } = require("electron")
 
 const app = document.getElementById('test')
 
-const logo = document.createElement('img')
-logo.src = 'img/logo.png'
+const logo = document.createElement('button')
+logo.setAttribute('class', 'logo')
 
 const container = document.createElement('div')
 container.setAttribute('class', 'container')
 
 app.appendChild(logo)
 app.appendChild(container)
+
+logo.addEventListener("click", () => {
+  ipcRenderer.send("vervangWin", "")
+});
 
 var request = new XMLHttpRequest()
 request.open('GET', `https://ghibliapi.herokuapp.com/films`, true)
