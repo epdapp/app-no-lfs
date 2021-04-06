@@ -19,7 +19,6 @@ app.on('ready', function(){
         height: 1080,
         webPreferences: {
             nodeIntegration: true,
-            enableRemoteModule: true
         }
     });
     mainWindow.maximize();
@@ -46,7 +45,6 @@ ipcMain.on("zoekWin", (e, item) => {
         title: 'Zoeken in dossiers',
         webPreferences: {
             nodeIntegration: true,
-            enableRemoteModule: true
         }
     });
     // html file laden
@@ -78,7 +76,6 @@ function createAddWindow(){
         title: 'Nieuw dossier aanmaken',
         webPreferences: {
             nodeIntegration: true,
-            enableRemoteModule: true
         }
     });
     // html file laden
