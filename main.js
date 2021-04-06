@@ -60,11 +60,7 @@ ipcMain.on("zoekWin", (e, item) => {
 
 
 ipcMain.on('vervangWin', (event, arg) => {
-    zoekWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainwindow.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
+    zoekWindow.close()
 });
 
 ipcMain.on("pijltje", (event, arg) => {
