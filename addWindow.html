@@ -5,20 +5,30 @@
   </head>
   <body>
       <label name="Ziekte">Ziekte</label>
-      <input type="text" name="ziekte-tekst" id="ziekte-test" autofocus value=""></input>
+      <input type="text" name="z" id="ziekte-tekst" autofocus value=""></input>
+      <input type="text" name="" id="">
+      <input type="text" name="" id="">
+      <input type="text">
+      <input type="text">
       <button type="submit" id="submit-btn">Voeg dossier toe</button>
       <script>
         btn = document.getElementById("submit-btn")
         btn.addEventListener("click", () => {
-          const https = require("https");
+          const http = require("http");
           const data = JSON.stringify({
-              name: document.getElementById("ziekte-test").value
+              z: document.getElementById("ziekte-tekst").value,
+              t: '1',
+              m: [
+                'test', 'test3'
+              ],
+              k: ['test', 'test3']
+
           })
 
           const options = {
-              hostname: "hookb.in",
-              port: 443,
-              path: "/K3M8r6VOynI0zzW3rnXO",
+              hostname: "127.0.0.1",
+              port: 5000,
+              path: "/dossiers/",
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -26,7 +36,7 @@
               }
           }
 
-          const req = https.request(options, (res) => {
+          const req = http.request(options, (res) => {
               console.log(`status: ${res.statusCode}`);
           });
 
