@@ -4,10 +4,35 @@
     <title>Nieuw dossier aanmaken</title>
   </head>
   <body>
-    <form>
       <label name="Ziekte">Ziekte</label>
-      <input type="text" name="ziekte-tekst" id="ziekte-test" autofocus></input>
-      <button type="submit">Voeg dossier toe</button>
-    </form>
+      <input type="text" name="ziekte-tekst" id="ziekte-test" autofocus value=""></input>
+      <button type="submit" id="submit-btn">Voeg dossier toe</button>
+      <script>
+        btn = document.getElementById("submit-btn")
+        btn.addEventListener("click", () => {
+          const https = require("https");
+          const data = JSON.stringify({
+              name: document.getElementById("ziekte-test").value
+          })
+
+          const options = {
+              hostname: "hookb.in",
+              port: 443,
+              path: "/K3M8r6VOynI0zzW3rnXO",
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Content-Length": data.length
+              }
+          }
+
+          const req = https.request(options, (res) => {
+              console.log(`status: ${res.statusCode}`);
+          });
+
+          req.write(data);
+          req.end();
+        })
+      </script>
   </body>
 </html>
