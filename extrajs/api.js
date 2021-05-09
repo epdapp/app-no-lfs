@@ -1,5 +1,4 @@
 const { ipcRenderer } = require("electron")
-
 const app = document.getElementById('test')
 
 const logo = document.createElement('button')
@@ -16,9 +15,13 @@ logo.addEventListener("click", () => {
 });
 
 var request = new XMLHttpRequest()
-request.open('GET', `https://ghibliapi.herokuapp.com/films`, true)
+request.open('GET', `http://127.0.0.1:5000/dossiers/all`, true)
+request.setRequestHeader("Content-Type", "application/json")
+request.setRequestHeader("Access-Control-Allow-Origin", "*")
+request.setRequestHeader("Access-Control-Allow-Credentials", "true")
+request.setRequestHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
 request.onload = function () {
-
   // Begin accessing JSON data here
   var data = JSON.parse(this.response)
   if (request.status >= 200 && request.status < 400) {
@@ -30,13 +33,12 @@ request.onload = function () {
       kruisje.setAttribute('class', 'kruisje')
 
       const h1 = document.createElement('h1')
-      h1.textContent = dossier.title
+      h1.textContent = dossier.Ziekte
 
       const p = document.createElement('p')
-      dossier.description = dossier.description.substring(0, 300)
-      p.textContent = `${dossier.description}...`
+      p.textContent = `${dossier.Behandeling}`
 
-      const id = dossier.id
+      const id = dossier.dossierId
 
       container.appendChild(card)
       card.appendChild(kruisje)
@@ -48,7 +50,7 @@ request.onload = function () {
       })
     })
   } else {
-    const errorMessage = document.createElement('marquee')
+    const errorMessage = document.createElement('p')
     errorMessage.textContent = `Het werkt niet...`
     app.appendChild(errorMessage)
   }
