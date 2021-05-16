@@ -10,14 +10,14 @@ container.setAttribute('class', 'container')
 app.appendChild(container)
 
 var request = new XMLHttpRequest()
-request.open('GET', `https://ghibliapi.herokuapp.com/films`, true)
+request.open('GET', `http://127.0.0.1:5000/dossiers/all`, true)
 request.onload = function () {
 
   // Begin accessing JSON data here
   var data = JSON.parse(this.response)
   if (request.status >= 200 && request.status < 400) {
     data.forEach((dossier) => {
-      if( "?id=" + dossier.id === document.location.search) {
+      if( "?dossierId=" + dossier.dossierId === document.location.search) {
 
         const card = document.createElement('div')
         card.setAttribute('class', 'card')
@@ -26,19 +26,16 @@ request.onload = function () {
         kruisje.setAttribute('class', 'kruisje')
 
         const h1 = document.createElement('h1')
-        h1.textContent = dossier.title
+        h1.textContent = dossier.Ziekte
 
         const p = document.createElement('p')
-        p.textContent = dossier.description
+        p.textContent = dossier.Behandeling
 
         const date = document.createElement('p')
-        date.textContent = `Release date: ${dossier.release_date}`
+        date.textContent = `Klachten: ${dossier.k}`
 
         const director = document.createElement('p')
-        director.textContent = `Director: ${dossier.director}`
-
-        const rt = document.createElement('p')
-        rt.textContent = `Tomatometer score: ${dossier.rt_score}`
+        director.textContent = `Medicijnen: ${dossier.m}`
 
         container.appendChild(card)
         card.appendChild(kruisje)
@@ -46,9 +43,8 @@ request.onload = function () {
         card.appendChild(p)
         card.appendChild(date)
         card.appendChild(director)
-        card.appendChild(rt)
         
-        document.querySelector("title").innerHTML = `EPD - ${dossier.title}`
+        document.querySelector("title").innerHTML = `EPD - ${dossier.Ziekte}`
       }
     })
   } else {

@@ -1,0 +1,114 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-size: 62, 5%;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  background: #313131; /* fallback for old browsers */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #fff;
+}
+
+label {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  margin-left: 43%;
+  display: block;
+  transition: all 0.3s;
+  transform: translateX(0rem);
+}
+
+#medicijnen-label {
+  margin-left: 53%;
+}
+
+#resultaat-label {
+  margin-left: 46%;
+}
+
+input {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0.5rem auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  width: 30%;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+}
+
+input:placeholder-shown + label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateX(-4rem);
+  transform: translateX(-4rem);
+}
+
+.container {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center {
+  width: 180px;
+  height: 60px;
+  position: absolute;
+}
+
+.btn {
+  width: 180px;
+  height: 60px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #a8a8a8;
+  outline: none;
+  transition: 1s ease-in-out;
+}
+
+svg {
+  top: 89.61%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  fill: none;
+  stroke: #fff;
+  stroke-dasharray: 150 480;
+  stroke-dashoffset: 150;
+  transition: 1s ease-in-out;
+}
+
+.btn:hover {
+  transition: 1s ease-in-out;
+  background: #a8a8a8;
+}
+
+.btn:hover svg {
+  stroke-dashoffset: -480;
+}
+
+.btn span {
+  color: white;
+  font-size: 18px;
+  font-weight: 100;
+}

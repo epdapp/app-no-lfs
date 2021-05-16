@@ -71,13 +71,14 @@ ipcMain.on("pijltje", (event, arg) => {
 
 function createAddWindow(){
     addWindow = new BrowserWindow ({
-        width: 500,
-        height: 400,
         title: 'Nieuw dossier aanmaken',
+        width: 1680,
+        height: 945,
         webPreferences: {
             nodeIntegration: true,
         }
     });
+    addWindow.maximize()
     // html file laden
     addWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'addWindow.html'),

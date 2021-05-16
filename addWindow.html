@@ -1,22 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/addWindow.css">
     <title>Nieuw dossier aanmaken</title>
   </head>
   <body>
-      <label name="Ziekte">Ziekte</label>
-      <input type="text" name="z" id="ziekte-tekst" autofocus value=""></input>
-      <input type="text" name="" id="">
-      <input type="text" name="" id="">
-      <input type="text">
-      <input type="text">
-      <button type="submit" id="submit-btn">Voeg dossier toe</button>
+      <input type="text" name="z" id="ziekte" placeholder="Ziekte Patiënt" value=""></input>
+      <label name="Ziekte">Ziekte Patiënt</label>
+      <input type="text" name="b" id="behandeling" placeholder="Behandeling Ziekte" value=""></input>
+      <label name="Behandeling">Behandeling Ziekte</label>
+      <input type="text" name="g" id="geslacht" placeholder="Geslacht Patiënt" value=""></input>
+      <label name="Geslacht">Geslacht Patiënt</label>
+      <input type="text" name="l" id="leeftijd" placeholder="Leeftijd Patiënt" value=""></input>
+      <label name="Leeftijd">Leeftijd Patiënt</label>
+      <input type="text" name="k" id="klachten" placeholder="Klachten Patiënt" value=""></input>
+      <label name="klachten">Klachten Patiënt</label>
+      <input type="text" name="m" id="medicijnen" placeholder="Medicijnen gebruikt tijdens behandeling" value=""></input>
+      <label name="medicijnen" id="medicijnen-label">Medicijnen gebruikt tijdens behandeling</label>
+      <input type="text" name="r" id="resultaat" placeholder="Resultaat behandeling" value=""></input>
+      <label name="resultaat" id="resultaat-label">Resultaat Behandeling</label>
+      <button type="submit" class="btn">
+        <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
+          <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
+          <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
+        </svg>
+        <span>Voeg Dossier Toe</span>
+      </button>
       <script>
-        btn = document.getElementById("submit-btn")
+        btn = document.querySelector(".btn")
         btn.addEventListener("click", () => {
           const http = require("http");
           const data = JSON.stringify({
-              z: document.getElementById("ziekte-tekst").value,
+              z: document.getElementById("ziekte").value,
+              b: document.getElementById("behandeling").value,
               t: '1',
               m: ['test', 'test3'],
               k: ['test', 'test3']

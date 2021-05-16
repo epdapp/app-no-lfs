@@ -46,7 +46,7 @@ request.onload = function () {
       card.appendChild(p)
 
       card.addEventListener("click", function() {
-        window.location = `dossier.html?id=${dossier.id}`
+        window.location = ``
       })
     })
   } else {
