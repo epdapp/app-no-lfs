@@ -1,3 +1,7 @@
+body { 
+  background: linear-gradient(110deg, #313131 60%, #212122 60%);
+}
+
 #test {
   max-width: 1200px;
   margin: 0 auto;
@@ -13,7 +17,7 @@
   width: 200px;
   background-image: url("../img/logo.png");
   background-size: cover;
-  background-color: #fff;
+  background-color: #313131;
   color: inherit;
   border: none;
   padding: 0;
@@ -24,9 +28,12 @@
 
 .card {
   margin: 1rem;
-  border: 1px solid gray;
-  background-color: aliceblue;
+  border: 1px solid #707070;
+  border-radius: 40px;
+  background-color: #FFFFFF;
   cursor: pointer;
+  width: 365px;
+  height: 185px;
 }
 
 .card:hover {
@@ -34,12 +41,15 @@
 }
 
 .card h1 {
-  margin: 1em;
-  background-color: rgb(230, 230, 230);
+  margin-top: 0;
+  margin-bottom: 110px;
+  background-color: rgb(255, 255, 255);
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  
 }
 
 .card p {
-  padding: 1em;
 }
 
 .kruisje {
@@ -64,3 +74,4 @@
     flex: 1 1 calc(33% - 2rem);
   }
 }
+
