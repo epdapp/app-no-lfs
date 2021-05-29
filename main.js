@@ -72,13 +72,12 @@ ipcMain.on("pijltje", (event, arg) => {
 function createAddWindow(){
     addWindow = new BrowserWindow ({
         title: 'Nieuw dossier aanmaken',
-        width: 1680,
-        height: 945,
+        width: 1280,
+        height: 720,
         webPreferences: {
             nodeIntegration: true,
         }
     });
-    addWindow.maximize()
     // html file laden
     addWindow.loadURL(url.format({
         pathname: path.join(__dirname, 'addWindow.html'),
@@ -97,6 +96,7 @@ const mainMenuTemplate = [
         submenu: [
             {
                 label: 'Nieuw Dossier',
+                accelerator: process.platform == 'darwin' ? 'Command+N' : 'Ctrl+N',
                 click(){
                     createAddWindow();
                 }
@@ -160,6 +160,7 @@ if (process.env.NODE_ENV !== 'production'){
 // main.js
 const { Deeplink } = require('electron-deeplink');
 const { exit } = require('process');
+const { platform } = require('os');
 
 let isDev = false
 
