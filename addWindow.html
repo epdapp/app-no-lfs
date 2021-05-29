@@ -19,7 +19,7 @@
       <label name="klachten">Klachten Patiënt</label>
       <input type="text" name="m" id="medicijnen" placeholder="Medicijnen gebruikt tijdens behandeling" value=""></input>
       <label name="medicijnen" id="medicijnen-label">Medicijnen gebruikt tijdens behandeling</label>
-      <input type="text" name="r" id="resultaat" placeholder="Resultaat behandeling" value=""></input>
+      <textarea type="text" name="r" id="resultaat" placeholder="Resultaat behandeling" value="" rows="1"></textarea>
       <label name="resultaat" id="resultaat-label">Resultaat Behandeling</label>
       <button type="submit" class="btn">
         <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
@@ -29,15 +29,17 @@
         <span>Voeg Dossier Toe</span>
       </button>
       <script>
+        const medicijnen = document.getElementById("medicijnen").value
+        const klachten = document.getElementById("klachten").value
         btn = document.querySelector(".btn")
         btn.addEventListener("click", () => {
           const http = require("http");
           const data = JSON.stringify({
               z: document.getElementById("ziekte").value,
               b: document.getElementById("behandeling").value,
-              t: '1',
-              m: ['test', 'test3'],
-              k: ['test', 'test3']
+              g: document.getElementById("geslacht").value,
+              l: document.getElementById("leeftijd").value,
+              r: document.getElementById("resultaat").value
 
           })
 
@@ -60,5 +62,6 @@
           req.end();
         })
       </script>
+      <script src="extrajs/addWindow.js"></script>
   </body>
 </html>

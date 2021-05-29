@@ -40,15 +40,39 @@ input {
   font-family: "Roboto", sans-serif;
   color: #333;
   font-size: 1.2rem;
-  margin: 0.5rem auto;
+  margin: 0.3rem auto;
   padding: 1.5rem 2rem;
   border-radius: 0.2rem;
   background-color: rgb(255, 255, 255);
   border: none;
-  width: 30%;
+  height: 0.5vh;
+  width: 30vw;
   display: block;
   border-bottom: 0.3rem solid transparent;
   transition: all 0.3s;
+}
+
+#resultaat {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0.3rem auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  height: 0.5vh;
+  width: 30vw;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+}
+
+#resultaat:placeholder-shown + label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateX(-4rem);
+  transform: translateX(-4rem);
 }
 
 input:placeholder-shown + label {
@@ -56,18 +80,6 @@ input:placeholder-shown + label {
   visibility: hidden;
   -webkit-transform: translateX(-4rem);
   transform: translateX(-4rem);
-}
-
-.container {
-  width: 400px;
-  height: 400px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .center {
@@ -87,7 +99,7 @@ input:placeholder-shown + label {
 }
 
 svg {
-  top: 89.61%;
+  top: 94.4vh;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;

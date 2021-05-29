@@ -35,6 +35,12 @@ request.onload = function () {
       const h1 = document.createElement('h1')
       h1.textContent = dossier.Ziekte
 
+      const h2 = document.createElement('h2')
+      h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
+
+      const ges = document.createElement('h2')
+      ges.textContent = `Geslacht: ${dossier.Geslacht}`
+
       const p = document.createElement('p')
       p.textContent = `${dossier.Behandeling}`
 
@@ -43,6 +49,8 @@ request.onload = function () {
       container.appendChild(card)
       card.appendChild(kruisje)
       card.appendChild(h1)
+      card.appendChild(h2)
+      card.appendChild(ges)
       card.appendChild(p)
 
       card.addEventListener("click", function() {
