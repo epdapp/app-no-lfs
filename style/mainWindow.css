@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color:#212122 ;
+  background: linear-gradient(110deg, #313131 60%, #212122 60%);
 }
 
 p {
