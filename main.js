@@ -2,7 +2,7 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
-const {app, BrowserWindow, Menu, ipcMain} = electron;
+const { app, BrowserWindow, Menu, ipcMain, session } = electron;
 
 let mainWindow;
 let addWindow;
@@ -24,7 +24,7 @@ app.on('ready', function(){
     mainWindow.maximize();
     // html file laden
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainWindow.html'),
+        pathname: path.join(__dirname, 'login.html'),
         protocol:'file:',
         slashes: true
     }));
@@ -170,6 +170,7 @@ const deeplink = new Deeplink({ app, mainWindow, protocol, isDev });
 deeplink.on('received', (link) => {
     try {
         cookie = Buffer.from(link.split("?")[1], 'base64').toString()
+        console.log("test")
     }
     catch(err) {
         console.log("URL decoding failed!")
@@ -178,6 +179,14 @@ deeplink.on('received', (link) => {
 
 
     console.log(cookie)
+
+    mainWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'mainWindow.html'),
+        protocol:'file:',
+        slashes: true
+    }));
+
+    module.exports = {cookie}
     
     // Het cookie variable moet met alle requests naar het API mee gestuurd worden met de naam google-login-session
 
