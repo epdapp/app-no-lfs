@@ -24,7 +24,7 @@ app.on('ready', function(){
     mainWindow.maximize();
     // html file laden
     mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'login.html'),
+        pathname: path.join(__dirname, 'mainwindow.html'),
         protocol:'file:',
         slashes: true
     }));

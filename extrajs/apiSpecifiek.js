@@ -1,4 +1,4 @@
-const { ipcRenderer } = require("electron")
+// const { ipcRenderer } = require("electron")
 
 const app = document.getElementById('test')
 
@@ -9,53 +9,57 @@ container.setAttribute('class', 'container')
 
 app.appendChild(container)
 
+const search = document.location.search
+id = new URLSearchParams(search).get('id')
+console.log(id)
 var request = new XMLHttpRequest()
-request.open('GET', `http://127.0.0.1:5000/dossiers/all`, true)
+request.open('GET', `http://127.0.0.1:5000/dossiers/${id}`, true)
+request.setRequestHeader("Content-Type", "application/json")
+request.setRequestHeader("Access-Control-Allow-Origin", "*")
+request.setRequestHeader("Access-Control-Allow-Credentials", "true")
+request.setRequestHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
 request.onload = function () {
-
   // Begin accessing JSON data here
-  var data = JSON.parse(this.response)
+  const data = JSON.parse(this.response)
+  const dossier = data
   if (request.status >= 200 && request.status < 400) {
-    data.forEach((dossier) => {
-      if( "?dossierId=" + dossier.dossierId === document.location.search) {
+      const card = document.createElement('button')
+      card.setAttribute('class', 'card')
 
-        const card = document.createElement('div')
-        card.setAttribute('class', 'card')
+      const kruisje = document.createElement('button')
+      kruisje.setAttribute('class', 'kruisje')
 
-        const kruisje = document.createElement('button')
-        kruisje.setAttribute('class', 'kruisje')
+      const h1 = document.createElement('h1')
+      h1.textContent = dossier.Ziekte
 
-        const h1 = document.createElement('h1')
-        h1.textContent = dossier.Ziekte
+      const h2 = document.createElement('h2')
+      h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
 
-        const p = document.createElement('p')
-        p.textContent = dossier.Behandeling
+      const ges = document.createElement('h2')
+      ges.textContent = `Geslacht: ${dossier.Geslacht}`
 
-        const date = document.createElement('p')
-        date.textContent = `Klachten: ${dossier.k}`
+      const p = document.createElement('p')
+      p.textContent = `${dossier.Behandeling}`
 
-        const director = document.createElement('p')
-        director.textContent = `Medicijnen: ${dossier.m}`
+      const id = dossier.DossierId
 
-        container.appendChild(card)
-        card.appendChild(kruisje)
-        card.appendChild(h1)
-        card.appendChild(p)
-        card.appendChild(date)
-        card.appendChild(director)
-        
-        document.querySelector("title").innerHTML = `EPD - ${dossier.Ziekte}`
-      }
-    })
+      container.appendChild(card)
+      card.appendChild(kruisje)
+      card.appendChild(h1)
+      card.appendChild(h2)
+      card.appendChild(ges)
+      card.appendChild(p)
+
+      // card.addEventListener("click", function() {
+      //   window.location = `/dossier.html?id=${id}`
+      // })
+
   } else {
-    const errorMessage = document.createElement('marquee')
-    errorMessage.textContent = `It ain't working`
+    const errorMessage = document.createElement('p')
+    errorMessage.textContent = `Het werkt niet...`
     app.appendChild(errorMessage)
   }
 }
-
-logo.addEventListener("click", () => {
-  ipcRenderer.send("vervangWin", "")
-})
 
 request.send()

@@ -1,4 +1,4 @@
-const { ipcRenderer } = require("electron")
+// const { ipcRenderer } = require("electron")
 const app = document.getElementById('test')
 
 const logo = document.createElement('button')
@@ -17,10 +17,10 @@ logo.addEventListener("click", () => {
 var request = new XMLHttpRequest()
 request.open('GET', `http://127.0.0.1:5000/dossiers/all`, true)
 request.setRequestHeader("Content-Type", "application/json")
-request.setRequestHeader("Access-Control-Allow-Origin", "*")
-request.setRequestHeader("Access-Control-Allow-Credentials", "true")
-request.setRequestHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
-request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
+// request.setRequestHeader("Access-Control-Allow-Origin", "*")
+// request.setRequestHeader("Access-Control-Allow-Credentials", "true")
+// request.setRequestHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
+// request.setRequestHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers")
 request.onload = function () {
   // Begin accessing JSON data here
   var data = JSON.parse(this.response)
@@ -44,7 +44,7 @@ request.onload = function () {
       const p = document.createElement('p')
       p.textContent = `${dossier.Behandeling}`
 
-      const id = dossier.dossierId
+      const id = dossier.DossierId
 
       container.appendChild(card)
       card.appendChild(kruisje)
@@ -53,8 +53,10 @@ request.onload = function () {
       card.appendChild(ges)
       card.appendChild(p)
 
+      console.log(id)
+
       card.addEventListener("click", function() {
-        window.location = ``
+        window.location = `/dossier.html?id=${id}`
       })
     })
   } else {
