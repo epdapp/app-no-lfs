@@ -15,7 +15,9 @@ webContents.on("dom-ready", () => {
 
 document.getElementById("logout").onclick = () => {
   authProcess.createLogoutWindow();
+  authProcess.createAuthWindow();
   remote.getCurrentWindow().close();
+  
 };
 
 document.getElementById("secured-request").onclick = () => {

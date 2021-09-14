@@ -49,7 +49,7 @@ function destroyAuthWin() {
 
 function createLogoutWindow() {
   const logoutWindow = new BrowserWindow({
-    show: false,
+    // show: false,
   });
 
   logoutWindow.loadURL(authService.getLogOutUrl());
