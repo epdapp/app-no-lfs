@@ -19,17 +19,20 @@
   },
   "homepage": "https://github.com/DesignerTies/app#readme",
   "dependencies": {
+    "axios": "^0.21.4",
     "electron-deeplink": "^1.0.6",
     "electron-squirrel-startup": "^1.0.0",
     "jquery": "^3.6.0",
-    "shell": "^0.5.0"
+    "jwt-decode": "^3.1.2",
+    "keytar": "^7.7.0",
+    "shell": "^0.8.4"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
     "electron": "^11.4.2"
   },
   "config": {

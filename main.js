@@ -1,6 +1,9 @@
 const electron = require('electron');
 const url = require('url');
 const path = require('path');
+const {createAuthWindow} = require('./auth-process');
+const createAppWindow = require('./app-process');
+const authService = require('./services/auth-service');
 
 const { app, BrowserWindow, Menu, ipcMain, session } = electron;
 
@@ -11,27 +14,22 @@ let testWindow;
 
 const remote = require('electron').remote;
 
+
+
+
+
+async function showWindow() {
+    try {
+        await authService.refreshTokens();
+        return createAppWindow();
+    } catch (err) {
+        createAuthWindow();
+    }
+}
+
 // listen for app to be ready
-app.on('ready', function(){
+app.on('ready', showWindow, function(){
     //nieuw venster maken
-    mainWindow = new BrowserWindow ({
-        width: 1920,
-        height: 1080,
-        webPreferences: {
-            nodeIntegration: true,
-        }
-    });
-    mainWindow.maximize();
-    // html file laden
-    mainWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'mainwindow.html'),
-        protocol:'file:',
-        slashes: true
-    }));
-    //app sluiten als er op kruisje wordt gedrukt
-    mainWindow.on('closed', function(){
-        app.quit();
-    });
 
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
 

@@ -1,39 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style/mainWindow.css" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
-    <title>app</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'" />
+    <title>Electron App</title>
+    
   </head>
-  <body>
-    <!-- Check of de gebruiker is ingelogd, als dit niet zo is: laad dan de inlog pagina -->
-    <!-- <script>
-      if (!document.cookie) {
-        //check if there is a cookie
-        window.location.replace("login.html");
-      }
-    </script> -->
 
-    <header>
-      <p id="naam">Welkom: (naam)</p>
-    </header>
-    <main>
-      <button type="button" id="toevoegen-btn">
-        <div class="blokjes" id="dossier-toevoegen">
-          <p>Dossier Toevoegen</p>
-        </div>
-      </button>
-      <button type="button" id="zoeken-btn">
-        <div class="blokjes" id="dossier-zoeken">
-          <p>In Dossiers Zoeken</p>
-        </div>
-      </button>
-    </main>
-    <script src="extrajs/buttons.js"></script>
-  </body>
+  <header >
+    <button id="logout">Log uit</button>
+    <img src="" alt="" id="picture">
+    <p id="name"></p>
+    <p id="success"></p>
+  </header>
+  
+  <script src="mainwindow.js"></script>
+
+
 </html>
