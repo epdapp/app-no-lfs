@@ -4,6 +4,10 @@ const app = document.getElementById('test')
 
 const logo = document.getElementById('logo')
 
+logo.addEventListener("click", () => {
+  window.location.replace("./zoekWindow.html")
+})
+
 const container = document.createElement('div')
 container.setAttribute('class', 'container')
 

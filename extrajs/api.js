@@ -1,4 +1,8 @@
-// const { ipcRenderer } = require("electron")
+const { ipcRenderer } = require("electron")
+
+const { BrowserWindow, remote } = require("electron")
+
+
 const app = document.getElementById('test')
 
 const logo = document.createElement('button')
@@ -11,7 +15,7 @@ app.appendChild(logo)
 app.appendChild(container)
 
 logo.addEventListener("click", () => {
-  ipcRenderer.send("vervangWin", "")
+  window.location.replace("./zoekWindow.html")
 });
 
 var request = new XMLHttpRequest()
@@ -56,7 +60,7 @@ request.onload = function () {
       console.log(id)
 
       card.addEventListener("click", function() {
-        window.location = `/dossier.html?id=${id}`
+        window.location.assign(`./dossier.html?id=${id}`)
       })
     })
   } else {
