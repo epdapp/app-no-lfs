@@ -1,7 +1,5 @@
-const { ipcRenderer } = require("electron")
 
-const { BrowserWindow, remote } = require("electron")
-
+const { remote } = require("electron")
 
 const app = document.getElementById('test')
 

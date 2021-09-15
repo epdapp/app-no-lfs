@@ -13,26 +13,9 @@ webContents.on("dom-ready", () => {
     "You successfully used OpenID Connect and OAuth 2.0 to authenticate.";
 });
 
-document.getElementById("logout").onclick = () => {
+document.getElementById("logout").onclick = async () => {
+  const curWin = remote.getCurrentWindow();
   authProcess.createLogoutWindow();
   authProcess.createAuthWindow();
-  remote.getCurrentWindow().close();
-  
-};
-
-document.getElementById("secured-request").onclick = () => {
-//   axios
-//     .get("http://localhost:3000/private", {
-//       headers: {
-//         Authorization: `Bearer ${authService.getAccessToken()}`,
-//       },
-//     })
-//     .then((response) => {
-//       const messageJumbotron = document.getElementById("message");
-//       messageJumbotron.innerText = response.data;
-//       messageJumbotron.style.display = "block";
-//     })
-//     .catch((error) => {
-//       if (error) throw new Error(error);
-//     });
+  await curWin.close();
 };

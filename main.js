@@ -43,6 +43,7 @@ ipcMain.on("zoekWin", (e, item) => {
         title: 'Zoeken in dossiers',
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
         }
     });
     // html file laden
