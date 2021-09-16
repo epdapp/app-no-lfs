@@ -3,14 +3,17 @@ const axios = require("axios");
 const authService = remote.require("./services/auth-service");
 const authProcess = remote.require("./auth-process");
 
+console.log(authService.getAccessToken())
+
 axios
 	.get("http://127.0.0.1:5000/dossiers/all", {
 		headers: {
 			Authorization: `Bearer ${authService.getAccessToken()}`,
+			
 		},
 	})
 	.then((response) => {
-		const data = JSON.parse(this.response)
+		const data = response
 		data.foreach((dossier) => {
 			const card = document.createElement('button')
 			card.setAttribute('class', 'card')

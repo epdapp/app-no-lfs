@@ -10,7 +10,7 @@ const { app, BrowserWindow, Menu, ipcMain, session } = electron;
 let mainWindow;
 let addWindow;
 let zoekWindow;
-let testWindow;
+let dossierWindow;
 
 const remote = require('electron').remote;
 

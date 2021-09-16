@@ -29,6 +29,9 @@ function getAuthenticationURL() {
     "https://" +
     auth0Domain +
     "/authorize?" +
+    "audience=" +
+    apiIdentifier +
+    "&" +
     "scope=openid profile offline_access&" +
     "response_type=code&" +
     "client_id=" +

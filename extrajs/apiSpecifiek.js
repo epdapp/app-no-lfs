@@ -1,4 +1,5 @@
-// const { ipcRenderer } = require("electron")
+const { remote } = require("electron")
+const authService = remote.require("./services/auth-service");
 
 const app = document.getElementById('test')
 
@@ -19,6 +20,7 @@ console.log(id)
 var request = new XMLHttpRequest()
 request.open('GET', `http://127.0.0.1:5000/dossiers/${id}`, true)
 request.setRequestHeader("Content-Type", "application/json")
+request.setRequestHeader("Authorization", `Bearer ${authService.getAccessToken()}`)
 request.setRequestHeader("Access-Control-Allow-Origin", "*")
 request.setRequestHeader("Access-Control-Allow-Credentials", "true")
 request.setRequestHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT")
