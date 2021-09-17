@@ -30,7 +30,7 @@ request.onload = function () {
   const data = JSON.parse(this.response)
   const dossier = data
   if (request.status >= 200 && request.status < 400) {
-      const card = document.createElement('button')
+      const card = document.createElement('div')
       card.setAttribute('class', 'card')
 
       const kruisje = document.createElement('button')
@@ -48,6 +48,18 @@ request.onload = function () {
       const p = document.createElement('p')
       p.textContent = `${dossier.Behandeling}`
 
+      const medsContainer = document.createElement('div')
+      
+      const meds = dossier.m
+      meds.forEach((med) => {
+        const medTxt = document.createElement('span')
+        medTxt.textContent = `${med} `
+        medsContainer.appendChild(medTxt)
+      })
+
+      const delBut = document.createElement('button')
+      delBut.textContent = "Verwijder dossier"
+
       const id = dossier.DossierId
 
       container.appendChild(card)
@@ -56,11 +68,8 @@ request.onload = function () {
       card.appendChild(h2)
       card.appendChild(ges)
       card.appendChild(p)
-
-      // card.addEventListener("click", function() {
-      //   window.location = `/dossier.html?id=${id}`
-      // })
-
+      card.appendChild(medsContainer)
+      card.appendChild(delBut)
   } else {
     const errorMessage = document.createElement('p')
     errorMessage.textContent = `Het werkt niet...`
