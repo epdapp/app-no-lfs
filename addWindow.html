@@ -31,10 +31,13 @@
         <span>Voeg Dossier Toe</span>
       </button>
       <script>
+
         const medicijnen = document.getElementById("medicijnen").value
         const klachten = document.getElementById("klachten").value
         btn = document.querySelector(".btn")
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", () => {        
+          const { remote } = require("electron") 
+          const authService = remote.require("./services/auth-service")
           const http = require("http");
           const data = JSON.stringify({
               z: document.getElementById("ziekte").value,
@@ -52,7 +55,8 @@
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
-                "Content-Length": data.length
+                "Content-Length": data.length,
+                "Authorization": `Bearer ${authService.getAccessToken()}`
               }
           }
 

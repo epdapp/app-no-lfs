@@ -75,6 +75,7 @@ function createAddWindow(){
         height: 720,
         webPreferences: {
             nodeIntegration: true,
+            enableRemoteModule: true,
         }
     });
     // html file laden

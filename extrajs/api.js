@@ -17,6 +17,8 @@ logo.addEventListener("click", () => {
   window.location.replace("./zoekWindow.html")
 });
 
+console.log(authService.getAccessToken())
+
 var request = new XMLHttpRequest()
 request.open('GET', `http://127.0.0.1:5000/dossiers/all`, true)
 request.setRequestHeader("Content-Type", "application/json")
