@@ -70,6 +70,14 @@ request.onload = function () {
       card.appendChild(p)
       card.appendChild(medsContainer)
       card.appendChild(delBut)
+
+      delBut.addEventListener("click", () => {
+        $.ajax({
+          type: "DELETE",
+          url: `http://127.0.0.1:5000/dossiers/del/${id}`,
+          headers: { "Authorization": `Bearer ${authService.getAccessToken()}` }
+        }).then(window.location.replace("./zoekWindow.html")).then(alert("Dossier verwijderd!"))
+      })
   } else {
     const errorMessage = document.createElement('p')
     errorMessage.textContent = `Het werkt niet...`
