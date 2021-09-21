@@ -12,6 +12,16 @@
     <main>
       <form action="">
         <input type="text" placeholder="Zoeken in dossiers" id="zoekbalk" />
+        <label for="search-type">Waar wil je op zoeken?</label>
+        <select name="search-type" id="search-type">
+          <option value="z">Ziekte</option>
+          <option value="b">Behandeling</option>
+          <option value="m">Medicatie</option>
+          <option value="k">Klacht</option>
+          <option value="g">Geslacht</option>
+          <option value="l">Leeftijd</option>
+          <option value="r">Resultaat Behandeling</option>
+        </select>
         <button type="submit" class="submit-btn">Zoek</button>
       </form>
     </main>

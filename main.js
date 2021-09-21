@@ -5,7 +5,7 @@ const {createAuthWindow} = require('./auth-process');
 const createAppWindow = require('./app-process');
 const authService = require('./services/auth-service');
 
-const { app, BrowserWindow, Menu, ipcMain, session } = electron;
+const { app, BrowserWindow, Menu, ipcMain, session, remote } = electron;
 
 let mainWindow;
 let addWindow;
@@ -13,7 +13,7 @@ let zoekWindow;
 let alleDosWindow;
 let dossierWindow;
 
-const remote = require('electron').remote;
+// const remote = require('electron').remote;
 
 
 
@@ -35,6 +35,10 @@ app.on('ready', showWindow, function(){
     const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
 
     Menu.setApplicationMenu(mainMenu);
+
+    let focusedWindow = BrowserWindow.getFocusedWindow()
+    focusedWindow.maximize()
+
 });//go to discord
 
 ipcMain.on("alleDos", (e, item) => {

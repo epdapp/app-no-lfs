@@ -10,6 +10,8 @@ function createAppWindow() {
     },
   });
 
+  win.maximize()
+
   win.loadFile("./mainwindow.html");
 
   win.on("closed", () => {
