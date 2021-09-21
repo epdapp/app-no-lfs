@@ -73,6 +73,7 @@ header img {
 main {
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
 main button {
@@ -98,6 +99,12 @@ main button {
 
 #dossier-toevoegen {
   background-image: url(../img/plus.png);
+}
+
+#alle-dossiers {
+  background-image: url(https://static.thenounproject.com/png/3857507-200.png);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #dossier-zoeken {

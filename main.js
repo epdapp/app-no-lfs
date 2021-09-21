@@ -10,6 +10,7 @@ const { app, BrowserWindow, Menu, ipcMain, session } = electron;
 let mainWindow;
 let addWindow;
 let zoekWindow;
+let alleDosWindow;
 let dossierWindow;
 
 const remote = require('electron').remote;
@@ -36,8 +37,8 @@ app.on('ready', showWindow, function(){
     Menu.setApplicationMenu(mainMenu);
 });//go to discord
 
-ipcMain.on("zoekWin", (e, item) => {
-    zoekWindow = new BrowserWindow ({
+ipcMain.on("alleDos", (e, item) => {
+   alleDosWindow = new BrowserWindow ({
         width: 1280,
         height: 720,
         title: 'Zoeken in dossiers',
@@ -47,8 +48,8 @@ ipcMain.on("zoekWin", (e, item) => {
         }
     });
     // html file laden
-    zoekWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'zoekWindow.html'),
+    alleDosWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'alleDossiers.html'),
         protocol:'file:',
         slashes: true
     }));
@@ -57,12 +58,12 @@ ipcMain.on("zoekWin", (e, item) => {
 
 
 ipcMain.on('vervangWin', (event, arg) => {
-    zoekWindow.close()
+    alleDosWindow.close()
 });
 
 ipcMain.on("pijltje", (event, arg) => {
-    zoekWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'zoekWindow.html'),
+    alleDosWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'alleDossiers.html'),
         protocol: 'file:',
         slashes: true
     }));
@@ -89,6 +90,24 @@ function createAddWindow(){
 ipcMain.on("addWin", (e, item) => {
     createAddWindow();
 });
+
+ipcMain.on("zoekWindow", (e, item) => {
+    zoekWindow = new BrowserWindow ({
+        width: 1280,
+        height: 720,
+        title: 'Zoeken in dossiers',
+        webPreferences: {
+            nodeIntegration: true,
+            enableRemoteModule: true,
+        }
+    });
+    // html file laden
+    zoekWindow.loadURL(url.format({
+        pathname: path.join(__dirname, 'zoekWindow.html'),
+        protocol:'file:',
+        slashes: true
+    }));
+})
 
 const mainMenuTemplate = [
     {

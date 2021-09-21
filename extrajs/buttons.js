@@ -1,12 +1,17 @@
 const { ipcRenderer } = require("electron");
 
-const zoekBtn = document.getElementById('zoeken-btn');
+const alleDos = document.getElementById('alles-dos-btn');
 const toevoegenBtn = document.getElementById('toevoegen-btn');
+const zoekenBtn = document.getElementById('zoeken-btn')
 
-zoekBtn.addEventListener('click', function(event) {
-    ipcRenderer.send("zoekWin", ""); 
+alleDos.addEventListener('click', function(event) {
+    ipcRenderer.send("alleDos", ""); 
 });
 
 toevoegenBtn.addEventListener('click', function(event) {
     ipcRenderer.send("addWin", "");
 });
+
+zoekenBtn.addEventListener("click", (event) => {
+    ipcRenderer.send("zoekWindow", "");
+})

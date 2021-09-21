@@ -76,7 +76,7 @@ request.onload = function () {
           type: "DELETE",
           url: `http://127.0.0.1:5000/dossiers/del/${id}`,
           headers: { "Authorization": `Bearer ${authService.getAccessToken()}` }
-        }).then(window.location.replace("./zoekWindow.html")).then(alert("Dossier verwijderd!"))
+        }).then(window.location.replace("./alleDossiers.html")).then(alert("Dossier verwijderd!"))
       })
   } else {
     const errorMessage = document.createElement('p')

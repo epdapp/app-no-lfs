@@ -68,6 +68,17 @@
 
           req.write(data);
           req.end();
+
+          alert("dossier toegevoegd")
+
+          document.getElementById("ziekte").value = ""
+          document.getElementById("behandeling").value = ""
+          document.getElementById("geslacht").value = ""
+          document.getElementById("leeftijd").value = ""
+          document.getElementById("resultaat").value = ""
+          document.getElementById("klachten").value = ""
+          document.getElementById("medicijnen").value = ""
+          window.close()
         })
       </script>
       <script src="extrajs/addWindow.js"></script>
