@@ -1,4 +1,4 @@
-const { remote } = require("electron")
+const { remote, protocol } = require("electron")
 const authService = remote.require("./services/auth-service")
 
 form = document.querySelector("form")
@@ -12,31 +12,30 @@ form.addEventListener("submit", (e) => {
     console.log(searchTerm)
     console.log(optionVal)
 
-    search(searchTerm, optionVal)
+    search(searchTerm, optionVal).then(displayDos)
 })
 
 function search(searchTerm, optionVal) {
-    fetch(`http:127.0.0.1:5000/dossiers/search?${optionVal}=${searchTerm}`, {
+    return fetch(`http:127.0.0.1:5000/dossiers/search?${optionVal}=${searchTerm}`, {
         headers: {
             'Authorization': `Bearer ${authService.getAccessToken()}`
         }
     })
-        .then(response => response)
+        .then(response => response.json())
         .then(result => {
-            const id = result
-
-            console.log(id);
+            console.log(authService.getAccessToken())
+            return result
         })
 }
 
-function fetchSpecDos(id) {
-    fetch(`http://127.0.0.1:5000/dossiers/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${authService.getAccessToken()}` 
-            }
-        })
-        .then(response => response.json)
-        .then(result => {
-            console.log(result)
-        })
+function displayDos(result) {
+    result.forEach((dossier) => {
+        const card = document.createElement("div")
+
+        const ziekte = document.createElement("p")
+        ziekte.textContent = dossier.Ziekte
+
+        document.body.appendChild(card)
+        card.appendChild(ziekte)
+    })
 }
