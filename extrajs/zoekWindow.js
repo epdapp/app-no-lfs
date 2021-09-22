@@ -30,10 +30,12 @@ function search(searchTerm, optionVal) {
 
 function displayDos(result) {
     result.forEach((dossier) => {
+        const main = document.querySelector("main")
         const card = document.createElement("div")
 
         const ziekte = document.createElement("p")
         ziekte.textContent = dossier.Ziekte
+
 
         document.body.appendChild(card)
         card.appendChild(ziekte)
