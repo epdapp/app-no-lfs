@@ -8,7 +8,6 @@ body {
 main {
   display: flex;
   flex-direction: row-reverse;
-  padding: 10em;
 }
 
 input {
@@ -20,6 +19,7 @@ input {
   border-radius: 4px;
   box-shadow: none;
   box-sizing: border-box;
+  margin-top: 10em;
 }
 
 input:focus {
@@ -29,8 +29,9 @@ input:focus {
 
 select {
   height: 38px;
-  width: 10px;
-  padding: 6px 10px;
+  width: 4.8em;
+  padding: 6px 8px;
+  text-align: center;
   background-color: #fff;
   border: 1px solid #d1d1d1;
   border-radius: 4px;
