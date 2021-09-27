@@ -5,7 +5,9 @@ form = document.querySelector("form")
 zoekBalk = document.getElementById("zoekbalk")
 opties = document.getElementById("search-type")
 
-form.addEventListener("submit", (e) => {
+const section = document.querySelector("section")
+
+form.addEventListener("input", (e) => {
     e.preventDefault()
     const searchTerm = zoekBalk.value
     const optionVal = opties.options[opties.selectedIndex].value
@@ -18,6 +20,14 @@ form.addEventListener("submit", (e) => {
     
 })
 
+zoekBalk.addEventListener("input", (e) => {
+    const searchTerm = zoekBalk.value
+
+    if(!searchTerm) {
+        section.innerHTML = ""
+    }
+})
+
 function search(searchTerm, optionVal) {
     return fetch(`http://127.0.0.1:5000/dossiers/search?${optionVal}=${searchTerm}`, {
         headers: {
@@ -26,16 +36,19 @@ function search(searchTerm, optionVal) {
     })
         .then(response => response.json())
         .then(result => {
-            console.log(authService.getAccessToken())
+            // console.log(authService.getAccessToken())
             return result
         })
 }
 
 function displayDos(result) {
+
+    section.innerHTML = ""
+
     result.forEach((dossier) => {
         const card = document.createElement('button')
         card.setAttribute('class', 'card')
-  
+
         const kruisje = document.createElement('button')
         kruisje.setAttribute('class', 'kruisje')
   
@@ -54,7 +67,7 @@ function displayDos(result) {
         const id = dossier.DossierId
 
 
-        document.body.appendChild(card)
+        section.appendChild(card)
         card.appendChild(h1)
         card.appendChild(h2)
         card.appendChild(ges)

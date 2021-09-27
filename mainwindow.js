@@ -2,6 +2,7 @@ const { remote } = require("electron");
 const axios = require("axios");
 const authService = remote.require("./services/auth-service");
 const authProcess = remote.require("./auth-process");
+const profile = authService.getProfile()
 
 const webContents = remote.getCurrentWebContents();
 
@@ -10,6 +11,8 @@ webContents.on("dom-ready", () => {
   document.getElementById("picture").src = profile.picture;
   document.getElementById("name").innerText = profile.name;
 });
+
+console.log(profile.name)
 
 document.getElementById("logout").onclick = async () => {
   const curWin = remote.getCurrentWindow();

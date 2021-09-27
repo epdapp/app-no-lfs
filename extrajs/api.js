@@ -41,6 +41,9 @@ request.onload = function () {
       const h1 = document.createElement('h1')
       h1.textContent = dossier.Ziekte
 
+      const aangemaakt = document.createElement("p")
+      aangemaakt.textContent = `Aangemaakt door: ${dossier.Aangemaakt}`
+
       const h2 = document.createElement('h2')
       h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
 
@@ -55,6 +58,7 @@ request.onload = function () {
       container.appendChild(card)
       card.appendChild(kruisje)
       card.appendChild(h1)
+      card.appendChild(aangemaakt)
       card.appendChild(h2)
       card.appendChild(ges)
       card.appendChild(p)
