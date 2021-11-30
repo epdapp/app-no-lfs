@@ -56,7 +56,6 @@
               k: document.getElementById("klachten").value.split(',', 2),
               m: document.getElementById("medicijnen").value.split(',', 2),
               a: profile.name
-
           })
 
           const options = {
@@ -65,9 +64,10 @@
               path: "/dossiers/",
               method: "POST",
               headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json;charset=utf-8",
+                "Data-Type": "charset=utf-8",
                 "Content-Length": data.length,
-                "Authorization": `Bearer ${authService.getAccessToken()}`
+                "Authorization": `Bearer ${authService.getAccessToken()}`,
               }
           }
 
@@ -91,14 +91,6 @@
           } catch(err) {
             console.log(err)
           }
-
-
-
-
-
-
-
-
         })
       </script>
       <script src="extrajs/addWindow.js"></script>

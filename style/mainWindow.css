@@ -48,6 +48,11 @@ header h1 {
   font-size: large;
 }
 
+header .append-time {
+  color: white;
+  margin-right: 1.3em;
+}
+
 header img {
   width: 50px;
   height: 50px;

@@ -1,8 +1,19 @@
-const { remote } = require("electron");
-const axios = require("axios");
-const authService = remote.require("./services/auth-service");
+// const { remote } = require("electron");
+// const axios = require("axios");
+// const authService = remote.require("./services/auth-service");
 const authProcess = remote.require("./auth-process");
-const profile = authService.getProfile()
+// const profile = authService.getProfile()
+const moment = require("moment")
+const tz = require("moment-timezone")
+
+const appendDiv = document.querySelector(".append-time")
+
+const time = document.createElement("div")
+time.textContent = moment().format("ddd D MMM, HH:MM").toLowerCase()
+appendDiv.appendChild(time)
+
+
+
 
 const webContents = remote.getCurrentWebContents();
 
