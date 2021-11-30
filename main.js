@@ -53,7 +53,7 @@ ipcMain.on("alleDos", (e, item) => {
     });
     // html file laden
     alleDosWindow.loadURL(url.format({
-        pathname: path.join(__dirname, 'alleDossiers.html'),
+        pathname: path.join(__dirname, 'mainWindowNew.html'),
         protocol:'file:',
         slashes: true
     }));
