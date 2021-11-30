@@ -49,9 +49,6 @@ function displayDos(result) {
         const card = document.createElement('button')
         card.setAttribute('class', 'card')
 
-        const kruisje = document.createElement('button')
-        kruisje.setAttribute('class', 'kruisje')
-  
         const h1 = document.createElement('h1')
         h1.textContent = dossier.Ziekte
   
@@ -59,6 +56,7 @@ function displayDos(result) {
         h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
   
         const ges = document.createElement('h2')
+        ges.setAttribute("class", "geslacht")
         ges.textContent = `Geslacht: ${dossier.Geslacht}`
   
         const p = document.createElement('p')
