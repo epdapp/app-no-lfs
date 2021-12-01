@@ -1,6 +1,7 @@
 const moment = require("moment")
 const tz = require("moment-timezone")
 const { remote } = require("electron")
+const { get } = require("jquery")
 const authService = remote.require("./services/auth-service")
 
 const profile = authService.getProfile()
@@ -13,16 +14,25 @@ const opties = document.getElementById("search-type")
 
 const appendDiv = document.querySelector(".append-time")
 
-const time = document.createElement("div")
-time.textContent = moment().format("HH:mm").toLowerCase()
-appendDiv.appendChild(time)
 
-const date = document.createElement("div")
-date.textContent = moment().format("ddd D MMM").toLowerCase()
-appendDiv.appendChild(date)
+function showTime() {
+	const timeEl = document.getElementById("time")
+	const time = moment().format("HH:mm").toLowerCase()
+
+	const dateEl = document.getElementById("date")
+	const date = moment().format("ddd D MMM").toLowerCase()
+
+	timeEl.innerHTML = time
+	dateEl.innerHTML = date
+}
+
+showTime()
+
+setInterval(showTime, 1000)
 
 const nameContent = document.getElementById("name")
-nameContent.textContent = `Welkom ${profile.name}`
+const firstName = profile.name.split(" ")[0]
+nameContent.textContent = `Welkom ${firstName}`
 
 document.querySelector("form").addEventListener("input", (e) => {
 	e.preventDefault()
@@ -60,9 +70,9 @@ function searchSpec(id) {
 	})
 		.then(response => response.json())
 		.then(result => {
+			console.log(result)
 			return result
 		})
-	
 }
 
 function displaySpecDos(result) {
@@ -70,30 +80,60 @@ function displaySpecDos(result) {
 
 	specDosWrapper.innerHTML = ""
 
-	const card = document.createElement('button')
-	card.setAttribute('class', 'cardSpec')
+	const card = document.createElement('div')
+	card.setAttribute('class', 'card-spec')
 
 	const kruisje = document.createElement('button')
 	kruisje.setAttribute('class', 'kruisje')
 
-	const h1 = document.createElement('h1')
-	h1.textContent = dossier.Ziekte
+	const zie = document.createElement('h1')
+	zie.textContent = dossier.Ziekte
 
-	const h2 = document.createElement('h2')
-	h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
+	const lee = document.createElement('p')
+	lee.textContent = `Leeftijd: ${dossier.Leeftijd}`
 
-	const ges = document.createElement('h2')
-	ges.setAttribute('class', 'geslachtSpec')
+	const ges = document.createElement('p')
+	ges.setAttribute('class', 'geslacht-spec')
 	ges.textContent = `Geslacht: ${dossier.Geslacht}`
 
-	const p = document.createElement('p')
-	p.textContent = `${dossier.Behandeling}`
+	const res = document.createElement('p')
+	res.textContent = `Resultaat: ${dossier.Resultaat}`
+
+	const beh = document.createElement('p')
+	beh.textContent = `Behandeling: ${dossier.Behandeling}`
+
+	const kla = document.createElement('p')
+	kla.textContent = `Klachten: ${dossier.k}`
+
+	const med = document.createElement("p")
+	med.textContent = `Medicijnen: ${dossier.m}`
+
+	const cre = document.createElement('p')
+	cre.textContent = `Aangemaakt: ${dossier.Aangemaakt}`
+
+	const delBut = document.createElement('button')
+	delBut.textContent = "Verwijder dossier"
 
 	specDosWrapper.appendChild(card)
-	card.appendChild(h1)
-	card.appendChild(h2)
+	card.appendChild(zie)
+	card.appendChild(lee)
 	card.appendChild(ges)
-	card.appendChild(p)
+	card.appendChild(beh)
+	card.appendChild(res)
+	card.appendChild(kla)
+	card.appendChild(cre)
+	card.appendChild(med)
+	card.appendChild(delBut)
+
+	const id = dossier.DossierId
+
+	delBut.addEventListener("click", (e) => {
+        $.ajax({
+          type: "DELETE",
+          url: `http://127.0.0.1:5000/dossiers/del/${id}`,
+          headers: { "Authorization": `Bearer ${authService.getAccessToken()}` }
+        }).then(specDosWrapper.innerHTML = "").then(alert("Dossier verwijderd!"))
+      })
 }
 
 function displayDos(result) {
@@ -137,4 +177,23 @@ function displayDos(result) {
 
     })
 }
+
+let isMenu = false
+
+const midCircle = document.getElementById("mid-circle")
+const rectangle = document.getElementById("rectangle")
+const triangleLeft = document.getElementById("triangle-left")
+
+midCircle.addEventListener("click", () => {
+	isMenu = !isMenu
+
+	if(isMenu) {
+		rectangle.style.display = "block"
+		triangleLeft.style.display = "block"
+	} else {
+		rectangle.style.display = "none"
+		triangleLeft.style.display = "none"
+	}
+})
+
 
