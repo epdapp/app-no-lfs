@@ -48,11 +48,67 @@ window.addEventListener("click", (e) => {
 	}
 })
 
+const medicijnen = document.getElementById("medicijnen").value
+const klachten = document.getElementById("klachten").value
+form = document.querySelector("#submit-form")
+form.addEventListener("submit", () => {        
+  const { remote } = require("electron") 
+  const authService = remote.require("./services/auth-service")
+  const gesOpties = document.getElementById("geslacht")
+  const profile = authService.getProfile()
+  const http = require("http");
+  const data = JSON.stringify({
+	  z: document.getElementById("ziekte").value,
+	  b: document.getElementById("behandeling").value,
+	  g: document.getElementById("geslacht").value,
+	  g: gesOpties.options[gesOpties.selectedIndex].value,
+	  l: document.getElementById("leeftijd").value,
+	  r: document.getElementById("resultaat").value,
+	  k: document.getElementById("klachten").value.split(',', 2),
+	  m: document.getElementById("medicijnen").value.split(',', 2),
+	  a: profile.name
+  })
+
+  const options = {
+	  hostname: "127.0.0.1",
+	  port: 5000,
+	  path: "/dossiers/",
+	  method: "POST",
+	  headers: {
+		"Content-Type": "application/json;charset=utf-8",
+		"Data-Type": "charset=utf-8",
+		"Content-Length": data.length,
+		"Authorization": `Bearer ${authService.getAccessToken()}`,
+	  }
+  }
+
+  try {          
+	const req = http.request(options, (res) => {
+	  console.log(`status: ${res.statusCode}`);
+	});
+	req.write(data);
+	req.end();
+
+	alert("dossier toegevoegd") 
+	document.getElementById("ziekte").value = ""
+	document.getElementById("behandeling").value = ""
+	document.getElementById("geslacht").value = ""
+	document.getElementById("leeftijd").value = ""
+	document.getElementById("resultaat").value = ""
+	document.getElementById("klachten").value = ""
+	document.getElementById("medicijnen").value = ""
+	modalAddDos.style.display = "none"
+
+  } catch(err) {
+	console.log(err)
+  }
+})
+
 const nameContent = document.getElementById("name")
 const firstName = profile.name.split(" ")[0]
 nameContent.textContent = `Welkom ${firstName}`
 
-document.querySelector("form").addEventListener("input", (e) => {
+document.querySelector("#zoek-form").addEventListener("input", (e) => {
 	e.preventDefault()
 	const searchTerm = zoekbalk.value
     const optionVal = opties.options[opties.selectedIndex].value
