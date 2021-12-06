@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style/mainWindowNew.css" />
@@ -33,9 +33,31 @@
     </aside>
     <main>
       <div class="add-dossier-modal modal">
-        <div class="add-dossier-modal-content content">
+        <div class="add-dossier-modal-content modal-content">
           <span class="close">&times;</span>
           <p>Voeg hier een dossier toe</p>
+          <form action="">
+            <input type="text" name="z" id="ziekte" placeholder="Ziekte Patiënt" value=""></input>
+              <label name="Ziekte">Ziekte Patiënt</label>
+            <input type="text" name="b" id="behandeling" placeholder="Behandeling Ziekte" value=""></input>
+              <label name="Behandeling">Behandeling Ziekte</label>
+            <select name="geslacht" id="geslacht" name="g">
+              <option value="" disabled selected>Geslacht</option>
+              <option value="vrouw">Vrouw</option>
+              <option value="man">Man</option>
+            </select>
+            <input type="text" name="l" id="leeftijd" placeholder="Leeftijd Patiënt" value=""></input>
+              <label name="Leeftijd">Leeftijd Patiënt</label>
+            <input type="text" name="k" id="klachten" placeholder="Klachten Patiënt" value=""></input>
+              <label name="klachten">Klachten Patiënt</label>
+            <input type="text" name="m" id="medicijnen" placeholder="Medicijnen gebruikt tijdens behandeling" value=""></input>
+              <label name="medicijnen" id="medicijnen-label">Medicijnen gebruikt tijdens behandeling</label>
+            <textarea type="text" name="r" id="resultaat" placeholder="Resultaat behandeling" value="" rows="1"></textarea>
+              <label name="resultaat" id="resultaat-label">Resultaat Behandeling</label>
+            <button type="submit" class="btn">
+              Voeg dossier toe
+            </button>
+          </form>
         </div>
       </div>
       <div class="left">

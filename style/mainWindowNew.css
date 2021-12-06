@@ -65,7 +65,7 @@ main div h2 {
   margin-top: 1rem;
 }
 
-input {
+#zoekbalk {
   height: 38px;
   width: 30em;
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
@@ -78,7 +78,7 @@ input {
   position: fixed;
 }
 
-input:focus {
+#zoekbalk:focus {
   border: 1px solid #33c3f0;
   outline: 0;
 }
@@ -87,7 +87,7 @@ input:focus {
   display: none;
 }
 
-select {
+#search-type {
   height: 38px;
   width: 4.8em;
   padding: 6px 8px;
@@ -102,7 +102,7 @@ select {
   margin: 1.7rem 4.5rem auto auto;
 }
 
-select:focus {
+#search-type:focus {
   border: 1px solid #33c3f0;
   outline: 0;
 }
@@ -187,12 +187,13 @@ select:focus {
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.content {
+.modal-content {
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: 2% auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+  height: 90%;
 }
 
 .close {
@@ -206,5 +207,102 @@ select:focus {
 .close:focus {
   color: black;
   text-decoration: none;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2rem;
+  margin-left: 43%;
+  display: block;
+  transition: all 0.3s;
+  transform: translateX(0rem);
+}
+
+#medicijnen-label {
+  margin-left: 53%;
+}
+
+#resultaat-label {
+  margin-left: 46%;
+}
+
+form input {
+  font-family: "Roboto", sans-serif;
+  border: none;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0.3rem auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  height: 0.3vh;
+  width: 30vw;
+  display: block;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  transition: all 0.3s;
+}
+
+form #ziekte {
+  margin-top: 0;
+}
+
+#geslacht {
+  width: 30%;
+  text-align-last: center;
+  margin: 1rem auto;
+}
+
+#resultaat {
+  font-family: "Roboto", sans-serif;
+  color: #333;
+  font-size: 1.2rem;
+  margin: 0.3rem auto;
+  padding: 1.5rem 2rem;
+  border-radius: 0.2rem;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  height: 0.5vh;
+  width: 30vw;
+  display: block;
+  border-bottom: 0.3rem solid transparent;
+  transition: all 0.3s;
+}
+
+#resultaat:placeholder-shown + label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateX(-4rem);
+  transform: translateX(-4rem);
+}
+
+form input:placeholder-shown + label {
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transform: translateX(-4rem);
+  transform: translateX(-4rem);
+}
+
+form .center {
+  width: 180px;
+  height: 60px;
+  position: absolute;
+}
+
+form .btn {
+  width: 10%;
+  margin: auto;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+form .btn:hover {
+  transition: 1s ease-in-out;
+  background: #ebebeb;
   cursor: pointer;
 }
