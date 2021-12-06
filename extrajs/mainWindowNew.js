@@ -104,6 +104,38 @@ form.addEventListener("submit", () => {
   }
 })
 
+
+const allDossiers = document.querySelector(".all-dossiers")
+const modalAllDos = document.querySelector(".all-dossier-modal")
+
+allDossiers.addEventListener("click", () => {
+	modalAllDos.style.display = "block"
+	fetchAll().then(displayDos)
+})
+
+closeSpan.addEventListener("click", () => {
+	modalAllDos.style.display = "none"
+})
+
+window.addEventListener("click", (e) => {
+	if (e.target == modalAllDos) {
+		modalAllDos.style.display = "none"
+	}
+})
+
+function fetchAll() {
+	return fetch('http://127.0.0.1:5000/dossiers/all', {
+			headers: {
+				'Authorization': `Bearer ${authService.getAccessToken()}`
+			}
+		})
+			.then(response => response.json())
+			.then(result => {
+				return result
+			})
+}
+
+
 const nameContent = document.getElementById("name")
 const firstName = profile.name.split(" ")[0]
 nameContent.textContent = `Welkom ${firstName}`

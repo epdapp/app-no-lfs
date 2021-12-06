@@ -179,6 +179,10 @@ main div h2 {
   outline: 0;
 }
 
+.menu-wrapper button img:first-of-type {
+  transform: scale(0.8);
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -242,10 +246,10 @@ form label {
   color: #333;
   font-size: 1.2rem;
   margin: 0.3rem auto;
-  padding: 1.5rem 2rem;
+  padding: 1rem 2rem;
   border-radius: 0.2rem;
   background-color: rgb(255, 255, 255);
-  height: 0.3vh;
+  height: 1px;
   width: 30vw;
   display: block;
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
