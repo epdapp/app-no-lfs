@@ -110,7 +110,7 @@ const modalAllDos = document.querySelector(".all-dossier-modal")
 
 allDossiers.addEventListener("click", () => {
 	modalAllDos.style.display = "block"
-	fetchAll().then(displayDos)
+	fetchAll().then(displayDosModal)
 })
 
 closeSpan.addEventListener("click", () => {
@@ -282,6 +282,40 @@ function displayDos(result) {
         })
 
     })
+}
+
+function displayDosModal(result) {
+	const modalSection = document.querySelector(".modal-wrapper")
+
+	result.forEach((dossier) => {
+		const card = document.createElement('button')
+        card.setAttribute('class', 'card card-in-modal')
+
+        const kruisje = document.createElement('button')
+        kruisje.setAttribute('class', 'kruisje')
+  
+        const h1 = document.createElement('h1')
+        h1.textContent = dossier.Ziekte
+  
+        const h2 = document.createElement('h2')
+        h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
+  
+        const ges = document.createElement('h2')
+		ges.setAttribute('class', 'geslacht')
+        ges.textContent = `Geslacht: ${dossier.Geslacht}`
+  
+        const p = document.createElement('p')
+        p.textContent = `${dossier.Behandeling}`
+  
+        const id = dossier.DossierId
+
+
+        modalSection.appendChild(card)
+        card.appendChild(h1)
+        card.appendChild(h2)
+        card.appendChild(ges)
+        card.appendChild(p)	
+	})
 }
 
 

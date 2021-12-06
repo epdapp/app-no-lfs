@@ -191,7 +191,6 @@ main div h2 {
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
   background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -202,6 +201,7 @@ main div h2 {
   border: 1px solid #888;
   width: 80%;
   height: 90%;
+  overflow: auto;
 }
 
 .close {
@@ -323,4 +323,21 @@ form #ziekte {
   transition: 1s ease-in-out;
   background: #ebebeb;
   cursor: pointer;
+}
+
+.modal-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: unset;
+  height: unset;
+}
+
+.card-in-modal {
+  margin: auto;
+  margin-top: 1rem;
+  height: 250px;
+}
+
+.card-in-modal:first-of-type {
+  margin-top: 1rem;
 }
