@@ -112,6 +112,7 @@ select:focus {
   border: none;
   border-radius: 35px;
   width: 400px;
+  margin-top: 2rem;
 }
 
 .card:first-of-type {
