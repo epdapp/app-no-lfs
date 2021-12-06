@@ -30,6 +30,24 @@ showTime()
 
 setInterval(showTime, 1000)
 
+const addDossier = document.querySelector(".add-dossier")
+const modalAddDos = document.querySelector(".add-dossier-modal")
+const closeSpan = document.getElementsByClassName("close")[0]
+
+addDossier.addEventListener("click", () => {
+	modalAddDos.style.display = "block"
+})
+
+closeSpan.addEventListener("click", () => {
+	modalAddDos.style.display = "none"
+})
+
+window.addEventListener("click", (e) => {
+	if (e.target == modalAddDos) {
+		modalAddDos.style.display = "none"
+	}
+})
+
 const nameContent = document.getElementById("name")
 const firstName = profile.name.split(" ")[0]
 nameContent.textContent = `Welkom ${firstName}`
@@ -178,22 +196,5 @@ function displayDos(result) {
     })
 }
 
-let isMenu = false
-
-const midCircle = document.getElementById("mid-circle")
-const rectangle = document.getElementById("rectangle")
-const triangleLeft = document.getElementById("triangle-left")
-
-midCircle.addEventListener("click", () => {
-	isMenu = !isMenu
-
-	if(isMenu) {
-		rectangle.style.display = "block"
-		triangleLeft.style.display = "block"
-	} else {
-		rectangle.style.display = "none"
-		triangleLeft.style.display = "none"
-	}
-})
 
 

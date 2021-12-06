@@ -18,19 +18,27 @@
     <link rel="stylesheet" href="style/mainWindowNew.css" />
   </head>
   <body>
+    <header></header>
+    <div class="menu"></div>
     <aside>
       <div class="append-time">
         <div id="time"></div>
         <div id="date"></div>
       </div>
-      <header></header>
-      <div class="menu"></div>
+      <div class="menu-wrapper">
+        <button class="add-dossier">Dossier Toevoegen</button>
+        <button class=""></button>
+        <button class=""></button>
+      </div>
     </aside>
     <main>
+      <div class="add-dossier-modal modal">
+        <div class="add-dossier-modal-content content">
+          <span class="close">&times;</span>
+          <p>Voeg hier een dossier toe</p>
+        </div>
+      </div>
       <div class="left">
-        <div id="rectangle"></div>
-        <div id="triangle-left"></div>
-        <div id="mid-circle"></div>
         <h2 id="name"></h2>
         <div class="spec-dos-wrapper"></div>
       </div>
