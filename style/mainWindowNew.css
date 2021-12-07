@@ -55,7 +55,6 @@ main div {
 }
 
 .right {
-  overflow-y: scroll;
 }
 
 main div h2 {
@@ -116,7 +115,7 @@ main div h2 {
 }
 
 .card:first-of-type {
-  margin-top: 6rem;
+  margin-top: 1rem;
 }
 
 .card:hover {
@@ -340,4 +339,10 @@ form #ziekte {
 
 .card-in-modal:first-of-type {
   margin-top: 1rem;
+}
+
+#section-all-dossiers {
+  margin-top: 8rem;
+  overflow-y: scroll;
+  height: 90vh;
 }

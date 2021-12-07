@@ -8,7 +8,7 @@ const profile = authService.getProfile()
 
 const specDosWrapper = document.querySelector(".spec-dos-wrapper")
 
-const section = document.querySelector("section")
+const section = document.querySelector("#section-all-dossiers")
 const zoekbalk = document.getElementById("zoekbalk")
 const opties = document.getElementById("search-type")
 
