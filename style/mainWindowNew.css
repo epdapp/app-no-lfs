@@ -54,13 +54,17 @@ main div {
   border-top: 5%;
 }
 
+#name {
+  font-size: 36px;
+}
+
 .right {
 }
 
 main div h2 {
   margin-left: 3rem;
   font-family: "Roboto", sans-serif;
-  font-size: 35px;
+  font-size: 12px;
   margin-top: 1rem;
 }
 

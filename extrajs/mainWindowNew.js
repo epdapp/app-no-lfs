@@ -67,8 +67,9 @@ function postDossier() {
 			'Authorization': `Bearer ${authService.getAccessToken()}`
 		}
 	})
-	.then(function (response) {
-		console.log(response)
+	.then(() => {
+		alert("Dossier toegevoegd")
+		modalAddDos.style.display = "none"
 	})
 	.catch(function (error) {
 		console.log(error)
@@ -82,57 +83,6 @@ form = document.querySelector("#submit-form")
 form.addEventListener("submit", (e) => {        
 	e.preventDefault()
 	postDossier()
-//   const { remote } = require("electron") 
-//   const authService = remote.require("./services/auth-service")
-//   const gesOpties = document.getElementById("geslacht")
-//   const profile = authService.getProfile()
-//   const http = require("http");
-//   const data = JSON.stringify({
-// 	  z: document.getElementById("ziekte").value,
-// 	  b: document.getElementById("behandeling").value,
-// 	  g: document.getElementById("geslacht").value,
-// 	  g: gesOpties.options[gesOpties.selectedIndex].value,
-// 	  l: document.getElementById("leeftijd").value,
-// 	  r: document.getElementById("resultaat").value,
-// 	  k: document.getElementById("klachten").value.split(',', 2),
-// 	  m: document.getElementById("medicijnen").value.split(',', 2),
-// 	  a: profile.name
-//   })
-
-//   const options = {
-// 	  hostname: "127.0.0.1",
-// 	  port: 5000,
-// 	  path: "/dossiers/",
-// 	  method: "POST",
-// 	  headers: {
-// 		"Content-Type": "application/json;charset=utf-8",
-// 		"Data-Type": "charset=utf-8",
-// 		"Content-Length": data.length,
-// 		"Authorization": `Bearer ${authService.getAccessToken()}`,
-// 	  }
-//   }
-
-//   try {          
-// 	const req = http.request(options, (res) => {
-// 	  console.log(`status: ${res.statusCode}`);
-// 	  console.log(data)
-// 	});
-// 	req.write(data);
-// 	req.end();
-
-// 	// alert("dossier toegevoegd") 
-// 	// document.getElementById("ziekte").value = ""
-// 	// document.getElementById("behandeling").value = ""
-// 	// document.getElementById("geslacht").value = ""
-// 	// document.getElementById("leeftijd").value = ""
-// 	// document.getElementById("resultaat").value = ""
-// 	// document.getElementById("klachten").value = ""
-// 	// document.getElementById("medicijnen").value = ""
-// 	// modalAddDos.style.display = "none"
-
-//   } catch(err) {
-// 	console.log(err)
-//   }
 })
 
 
@@ -285,20 +235,36 @@ function displayDos(result) {
 
         const kruisje = document.createElement('button')
         kruisje.setAttribute('class', 'kruisje')
-  
-        const h1 = document.createElement('h1')
-        h1.textContent = dossier.Ziekte
-  
+
+		const h1 = document.createElement('h1')
+		if (dossier.Ziekte != null) {
+        	h1.textContent = dossier.Ziekte
+		} else {
+			h1.textContent = "Geen ziekte gespecificeerd"
+		}
+
         const h2 = document.createElement('h2')
-        h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
-  
+		if (dossier.Leeftijd != null) {
+			h2.textContent = `Leeftijd: ${dossier.Leeftijd}`
+		} else {
+			h2.textContent = "Geen leeftijd gespecificeerd"
+		}
+
         const ges = document.createElement('h2')
 		ges.setAttribute('class', 'geslacht')
-        ges.textContent = `Geslacht: ${dossier.Geslacht}`
-  
+		if (dossier.Geslacht != null) {
+        	ges.textContent = `Geslacht: ${dossier.Geslacht}`
+		} else {
+			ges.textContent = "Geen geslacht gespecificeerd"
+		}
+
         const p = document.createElement('p')
-        p.textContent = `${dossier.Behandeling}`
-  
+		if (dossier.Behandeling != null) {
+        	p.textContent = `${dossier.Behandeling}`
+		} else {
+			p.textContent = "Geen behandeling gespecificeerd"
+		}
+
         const id = dossier.DossierId
 
 
