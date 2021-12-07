@@ -1,7 +1,8 @@
 const moment = require("moment")
-const tz = require("moment-timezone")
+const axios = require('axios').default
 const { remote } = require("electron")
 const { get } = require("jquery")
+const { log } = require("console")
 const authService = remote.require("./services/auth-service")
 
 const profile = authService.getProfile()
@@ -48,60 +49,90 @@ window.addEventListener("click", (e) => {
 	}
 })
 
+
+function postDossier() {
+	const gesOpties = document.getElementById("geslacht")
+	axios.post('http://127.0.0.1:5000/dossiers/', {
+		z: document.getElementById("ziekte").value,
+		b: document.getElementById("behandeling").value,
+		g: document.getElementById("geslacht").value,
+		g: gesOpties.options[gesOpties.selectedIndex].value,
+		l: document.getElementById("leeftijd").value,
+		r: document.getElementById("resultaat").value,
+		k: document.getElementById("klachten").value.split(',', 2),
+		m: document.getElementById("medicijnen").value.split(',', 2),
+		a: profile.name
+	}, {
+		headers: {
+			'Authorization': `Bearer ${authService.getAccessToken()}`
+		}
+	})
+	.then(function (response) {
+		console.log(response)
+	})
+	.catch(function (error) {
+		console.log(error)
+	})
+	
+}
+
 const medicijnen = document.getElementById("medicijnen").value
 const klachten = document.getElementById("klachten").value
 form = document.querySelector("#submit-form")
-form.addEventListener("submit", () => {        
-  const { remote } = require("electron") 
-  const authService = remote.require("./services/auth-service")
-  const gesOpties = document.getElementById("geslacht")
-  const profile = authService.getProfile()
-  const http = require("http");
-  const data = JSON.stringify({
-	  z: document.getElementById("ziekte").value,
-	  b: document.getElementById("behandeling").value,
-	  g: document.getElementById("geslacht").value,
-	  g: gesOpties.options[gesOpties.selectedIndex].value,
-	  l: document.getElementById("leeftijd").value,
-	  r: document.getElementById("resultaat").value,
-	  k: document.getElementById("klachten").value.split(',', 2),
-	  m: document.getElementById("medicijnen").value.split(',', 2),
-	  a: profile.name
-  })
+form.addEventListener("submit", (e) => {        
+	e.preventDefault()
+	postDossier()
+//   const { remote } = require("electron") 
+//   const authService = remote.require("./services/auth-service")
+//   const gesOpties = document.getElementById("geslacht")
+//   const profile = authService.getProfile()
+//   const http = require("http");
+//   const data = JSON.stringify({
+// 	  z: document.getElementById("ziekte").value,
+// 	  b: document.getElementById("behandeling").value,
+// 	  g: document.getElementById("geslacht").value,
+// 	  g: gesOpties.options[gesOpties.selectedIndex].value,
+// 	  l: document.getElementById("leeftijd").value,
+// 	  r: document.getElementById("resultaat").value,
+// 	  k: document.getElementById("klachten").value.split(',', 2),
+// 	  m: document.getElementById("medicijnen").value.split(',', 2),
+// 	  a: profile.name
+//   })
 
-  const options = {
-	  hostname: "127.0.0.1",
-	  port: 5000,
-	  path: "/dossiers/",
-	  method: "POST",
-	  headers: {
-		"Content-Type": "application/json;charset=utf-8",
-		"Data-Type": "charset=utf-8",
-		"Content-Length": data.length,
-		"Authorization": `Bearer ${authService.getAccessToken()}`,
-	  }
-  }
+//   const options = {
+// 	  hostname: "127.0.0.1",
+// 	  port: 5000,
+// 	  path: "/dossiers/",
+// 	  method: "POST",
+// 	  headers: {
+// 		"Content-Type": "application/json;charset=utf-8",
+// 		"Data-Type": "charset=utf-8",
+// 		"Content-Length": data.length,
+// 		"Authorization": `Bearer ${authService.getAccessToken()}`,
+// 	  }
+//   }
 
-  try {          
-	const req = http.request(options, (res) => {
-	  console.log(`status: ${res.statusCode}`);
-	});
-	req.write(data);
-	req.end();
+//   try {          
+// 	const req = http.request(options, (res) => {
+// 	  console.log(`status: ${res.statusCode}`);
+// 	  console.log(data)
+// 	});
+// 	req.write(data);
+// 	req.end();
 
-	alert("dossier toegevoegd") 
-	document.getElementById("ziekte").value = ""
-	document.getElementById("behandeling").value = ""
-	document.getElementById("geslacht").value = ""
-	document.getElementById("leeftijd").value = ""
-	document.getElementById("resultaat").value = ""
-	document.getElementById("klachten").value = ""
-	document.getElementById("medicijnen").value = ""
-	modalAddDos.style.display = "none"
+// 	// alert("dossier toegevoegd") 
+// 	// document.getElementById("ziekte").value = ""
+// 	// document.getElementById("behandeling").value = ""
+// 	// document.getElementById("geslacht").value = ""
+// 	// document.getElementById("leeftijd").value = ""
+// 	// document.getElementById("resultaat").value = ""
+// 	// document.getElementById("klachten").value = ""
+// 	// document.getElementById("medicijnen").value = ""
+// 	// modalAddDos.style.display = "none"
 
-  } catch(err) {
-	console.log(err)
-  }
+//   } catch(err) {
+// 	console.log(err)
+//   }
 })
 
 
@@ -243,6 +274,8 @@ function displaySpecDos(result) {
 }
 
 function displayDos(result) {
+
+	console.log(authService.getAccessToken())
 
     section.innerHTML = ""
 

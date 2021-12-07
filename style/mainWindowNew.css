@@ -342,7 +342,7 @@ form #ziekte {
 }
 
 #section-all-dossiers {
-  margin-top: 8rem;
+  margin-top: 6rem;
   overflow-y: scroll;
-  height: 90vh;
+  height: 80%;
 }
