@@ -336,13 +336,37 @@ form #ziekte {
 }
 
 .card-in-modal {
-  margin: auto;
   margin-top: 1rem;
-  height: 250px;
+  width: 150px;
+  height: 105px;
+  margin: 0 auto;
+  margin-top: 50px;
+  position: relative;
+  background-color: #708090;
+  border-radius: 0 6px 6px 6px;
+  text-align: left;
+}
+
+.card-in-modal::before {
+  content: "";
+  width: 50%;
+  height: 0.5rem;
+  border-radius: 0 20px 0 0;
+  background-color: #708090;
+  position: absolute;
+  top: -8px;
+  left: 0px;
 }
 
 .card-in-modal:first-of-type {
-  margin-top: 1rem;
+  margin-top: 3rem;
+}
+
+.card-in-modal h1,
+.card-in-modal h2,
+.card-in-modal p {
+  font-size: 11px;
+  text-align: left;
 }
 
 #section-all-dossiers {

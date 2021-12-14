@@ -1,4 +1,5 @@
 const { BrowserWindow } = require("electron");
+const authService = require("./services/auth-service");
 
 function createAppWindow() {
   let win = new BrowserWindow({
@@ -10,7 +11,7 @@ function createAppWindow() {
     },
   });
 
-  win.maximize()
+  win.maximize();
 
   win.loadFile("./mainwindow.html");
 
