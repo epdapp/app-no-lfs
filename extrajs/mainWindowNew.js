@@ -432,9 +432,13 @@ function displaySavedDos(dossier) {
 }
 
 function getAllSavedDossiersAndDisplay(allDossierId) {
-  if (typeof allDossierId == "number") {
+  const allDossierIdArray = allDossierId.toString().split(", ");
+
+  console.log(allDossierIdArray);
+
+  allDossierIdArray.forEach((dossierId) => {
     return axios
-      .get(`http://127.0.0.1:5000/dossiers/${allDossierId}`, {
+      .get(`http://127.0.0.1:5000/dossiers/${dossierId}`, {
         headers: {
           Authorization: `Bearer ${authService.getAccessToken()}`,
         },
@@ -443,21 +447,5 @@ function getAllSavedDossiersAndDisplay(allDossierId) {
         const dossier = response.data;
         displaySavedDos(dossier);
       });
-  } else {
-    const allDossierIdArray = allDossierId.split(", ");
-    console.log(allDossierIdArray);
-
-    allDossierIdArray.forEach((dossierId) => {
-      return axios
-        .get(`http://127.0.0.1:5000/dossiers/${dossierId}`, {
-          headers: {
-            Authorization: `Bearer ${authService.getAccessToken()}`,
-          },
-        })
-        .then((response) => {
-          const dossier = response.data;
-          displaySavedDos(dossier);
-        });
-    });
-  }
+  });
 }
