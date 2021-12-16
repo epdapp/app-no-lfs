@@ -114,8 +114,12 @@ const closeSavedDos = document.querySelector(".close-saved");
 
 savedDossiers.addEventListener("click", async () => {
   const allDossierId = await getSavedDossiersId();
-  getAllSavedDossiersAndDisplay(allDossierId);
-  modalSavedDos.style.display = "block";
+  if (allDossierId == null) {
+    alert("Je hebt geen opgeslagen dossiers");
+  } else {
+    getAllSavedDossiersAndDisplay(allDossierId);
+    modalSavedDos.style.display = "block";
+  }
 });
 
 window.addEventListener("click", (e) => {
@@ -428,13 +432,9 @@ function displaySavedDos(dossier) {
 }
 
 function getAllSavedDossiersAndDisplay(allDossierId) {
-  const allDossierIdArray = allDossierId.split(", ");
-
-  console.log(allDossierIdArray);
-
-  allDossierIdArray.forEach((dossierId) => {
+  if (typeof allDossierId == "number") {
     return axios
-      .get(`http://127.0.0.1:5000/dossiers/${dossierId}`, {
+      .get(`http://127.0.0.1:5000/dossiers/${allDossierId}`, {
         headers: {
           Authorization: `Bearer ${authService.getAccessToken()}`,
         },
@@ -443,5 +443,21 @@ function getAllSavedDossiersAndDisplay(allDossierId) {
         const dossier = response.data;
         displaySavedDos(dossier);
       });
-  });
+  } else {
+    const allDossierIdArray = allDossierId.split(", ");
+    console.log(allDossierIdArray);
+
+    allDossierIdArray.forEach((dossierId) => {
+      return axios
+        .get(`http://127.0.0.1:5000/dossiers/${dossierId}`, {
+          headers: {
+            Authorization: `Bearer ${authService.getAccessToken()}`,
+          },
+        })
+        .then((response) => {
+          const dossier = response.data;
+          displaySavedDos(dossier);
+        });
+    });
+  }
 }
