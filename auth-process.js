@@ -26,9 +26,9 @@ async function storeUserInDB() {
         },
       }
     )
-    .then(alert("geluk!"))
+    .then(console.log("gelukt!"))
     .catch(function (error) {
-      console.log(error);
+      console.log("er is een error");
     });
 }
 

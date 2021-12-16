@@ -204,6 +204,9 @@ function displaySpecDos(result) {
   const save = document.createElement("button");
   save.textContent = "Sla dit dossier op";
 
+  const testBut = document.createElement("button");
+  testBut.textContent = "test of de saveddossier get route werkt";
+
   const delBut = document.createElement("button");
   delBut.textContent = "Verwijder dossier";
 
@@ -217,6 +220,7 @@ function displaySpecDos(result) {
   card.appendChild(cre);
   card.appendChild(med);
   card.appendChild(save);
+  card.appendChild(testBut);
   card.appendChild(delBut);
 
   const id = dossier.DossierId;
@@ -224,6 +228,12 @@ function displaySpecDos(result) {
   save.addEventListener("click", (e) => {
     e.preventDefault;
     saveDossier(id);
+  });
+
+  testBut.addEventListener("click", async () => {
+    const preStoredDossiers = await getSavedDossiers();
+    console.log(preStoredDossiers);
+    saveDossier(id, preStoredDossiers);
   });
 
   delBut.addEventListener("click", (e) => {
@@ -327,15 +337,22 @@ function displayDosModal(result) {
   });
 }
 
-async function saveDossier(id) {
+async function saveDossier(id, preStoredDossiers) {
   const fullId = profile.sub;
   const numId = fullId.split("|")[1];
+
+  let dossierId = `${preStoredDossiers}, ${id}`;
+
+  if (preStoredDossiers == undefined) {
+    dossierId = id;
+  }
+
   await axios
     .put(
-      "http://127.0.0.1:5000/savedossier/",
+      "http://127.0.0.1:5000/saveddossiers/",
       {
         userId: numId,
-        dossierId: id,
+        dossierId: dossierId,
       },
       {
         headers: {
@@ -346,5 +363,19 @@ async function saveDossier(id) {
     .then(alert("geluk!"))
     .catch(function (error) {
       console.log(error);
+    });
+}
+
+function getSavedDossiers() {
+  const fullId = profile.sub;
+  const numId = fullId.split("|")[1];
+  return axios
+    .get(`http://127.0.0.1:5000/get-saveddossiers/${numId}`, {
+      headers: {
+        Authorization: `Bearer ${authService.getAccessToken()}`,
+      },
+    })
+    .then((response) => {
+      return response.data[0].StoredDossier;
     });
 }
