@@ -227,7 +227,7 @@ function displaySpecDos(result) {
 
   save.addEventListener("click", (e) => {
     e.preventDefault;
-    saveDossier(id);
+    // saveDossier(id);
   });
 
   testBut.addEventListener("click", async () => {
