@@ -105,6 +105,31 @@ window.addEventListener("click", (e) => {
   }
 });
 
+const savedDossiers = document.querySelector(".saved-dossiers");
+const modalSavedDos = document.querySelector(".saved-dossiers-modal");
+const modalSavedWrapper = document.querySelector(
+  ".saved-dossiers-modal-wrapper"
+);
+const closeSavedDos = document.querySelector(".close-saved");
+
+savedDossiers.addEventListener("click", async () => {
+  const allDossierId = await getSavedDossiersId();
+  getAllSavedDossiersAndDisplay(allDossierId);
+  modalSavedDos.style.display = "block";
+});
+
+window.addEventListener("click", (e) => {
+  if (e.target == modalSavedDos) {
+    modalSavedDos.style.display = "none";
+    modalSavedWrapper.innerHTML = "";
+  }
+});
+
+closeSavedDos.addEventListener("click", () => {
+  modalSavedDos.style.display = "none";
+  modalSavedWrapper.innerHTML = "";
+});
+
 function fetchAll() {
   return fetch("http://127.0.0.1:5000/dossiers/all", {
     headers: {
@@ -222,7 +247,7 @@ function displaySpecDos(result) {
   const id = dossier.DossierId;
 
   save.addEventListener("click", async () => {
-    const preStoredDossiers = await getSavedDossiers();
+    const preStoredDossiers = await getSavedDossiersId();
     console.log(preStoredDossiers);
     saveDossier(id, preStoredDossiers);
   });
@@ -357,7 +382,7 @@ async function saveDossier(id, preStoredDossiers) {
     });
 }
 
-function getSavedDossiers() {
+function getSavedDossiersId() {
   const fullId = profile.sub;
   const numId = fullId.split("|")[1];
   return axios
@@ -369,4 +394,54 @@ function getSavedDossiers() {
     .then((response) => {
       return response.data[0].StoredDossier;
     });
+}
+
+function displaySavedDos(dossier) {
+  const wrapper = document.querySelector(".saved-dossiers-modal-wrapper");
+
+  const card = document.createElement("button");
+  card.setAttribute("class", "card card-in-modal");
+
+  const kruisje = document.createElement("button");
+  kruisje.setAttribute("class", "kruisje");
+
+  const h1 = document.createElement("h1");
+  h1.textContent = dossier.Ziekte;
+
+  const h2 = document.createElement("h2");
+  h2.textContent = `Leeftijd: ${dossier.Leeftijd}`;
+
+  const ges = document.createElement("h2");
+  ges.setAttribute("class", "geslacht");
+  ges.textContent = `Geslacht: ${dossier.Geslacht}`;
+
+  const p = document.createElement("p");
+  p.textContent = `${dossier.Behandeling}`;
+
+  const id = dossier.DossierId;
+
+  wrapper.appendChild(card);
+  card.appendChild(h1);
+  card.appendChild(h2);
+  card.appendChild(ges);
+  card.appendChild(p);
+}
+
+function getAllSavedDossiersAndDisplay(allDossierId) {
+  const allDossierIdArray = allDossierId.split(", ");
+
+  console.log(allDossierIdArray);
+
+  allDossierIdArray.forEach((dossierId) => {
+    return axios
+      .get(`http://127.0.0.1:5000/dossiers/${dossierId}`, {
+        headers: {
+          Authorization: `Bearer ${authService.getAccessToken()}`,
+        },
+      })
+      .then((response) => {
+        const dossier = response.data;
+        displaySavedDos(dossier);
+      });
+  });
 }
