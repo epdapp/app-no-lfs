@@ -204,9 +204,6 @@ function displaySpecDos(result) {
   const save = document.createElement("button");
   save.textContent = "Sla dit dossier op";
 
-  const testBut = document.createElement("button");
-  testBut.textContent = "test of de saveddossier get route werkt";
-
   const delBut = document.createElement("button");
   delBut.textContent = "Verwijder dossier";
 
@@ -220,17 +217,11 @@ function displaySpecDos(result) {
   card.appendChild(cre);
   card.appendChild(med);
   card.appendChild(save);
-  card.appendChild(testBut);
   card.appendChild(delBut);
 
   const id = dossier.DossierId;
 
-  save.addEventListener("click", (e) => {
-    e.preventDefault;
-    // saveDossier(id);
-  });
-
-  testBut.addEventListener("click", async () => {
+  save.addEventListener("click", async () => {
     const preStoredDossiers = await getSavedDossiers();
     console.log(preStoredDossiers);
     saveDossier(id, preStoredDossiers);
