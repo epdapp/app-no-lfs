@@ -15,6 +15,10 @@ const opties = document.getElementById("search-type");
 
 const appendDiv = document.querySelector(".append-time");
 
+const modalSection = document.querySelector(".modal-wrapper");
+
+let isSaved = false;
+
 function showTime() {
   const timeEl = document.getElementById("time");
   const time = moment().format("HH:mm").toLowerCase();
@@ -90,9 +94,11 @@ form.addEventListener("submit", (e) => {
 const allDossiers = document.querySelector(".all-dossiers");
 const modalAllDos = document.querySelector(".all-dossier-modal");
 
-allDossiers.addEventListener("click", () => {
+allDossiers.addEventListener("click", async () => {
   modalAllDos.style.display = "block";
+  modalSection.innerHTML = "";
   fetchAll().then(displayDosModal);
+  await checkIfSaved(1);
 });
 
 closeSpan.addEventListener("click", () => {
@@ -199,6 +205,8 @@ function displaySpecDos(result) {
 
   specDosWrapper.innerHTML = "";
 
+  dossier.innerHTML = "";
+
   const card = document.createElement("div");
   card.setAttribute("class", "card-spec");
 
@@ -230,8 +238,15 @@ function displaySpecDos(result) {
   const cre = document.createElement("p");
   cre.textContent = `Aangemaakt: ${dossier.Aangemaakt}`;
 
-  const save = document.createElement("button");
-  save.textContent = "Sla dit dossier op";
+  if (!isSaved) {
+    const save = document.createElement("button");
+    save.textContent = "Sla dit dossier op";
+    card.appendChild(save);
+  } else {
+    const delSave = document.createElement("button");
+    delSave.textContent = "Verwijder dit dossier uit uw opgeslagen dossiers";
+    card.appendChild(delSave);
+  }
 
   const delBut = document.createElement("button");
   delBut.textContent = "Verwijder dossier";
@@ -245,7 +260,6 @@ function displaySpecDos(result) {
   card.appendChild(kla);
   card.appendChild(cre);
   card.appendChild(med);
-  card.appendChild(save);
   card.appendChild(delBut);
 
   const id = dossier.DossierId;
@@ -316,17 +330,17 @@ function displayDos(result) {
     card.appendChild(ges);
     card.appendChild(p);
 
-    card.addEventListener("click", () => {
+    card.addEventListener("click", async () => {
       console.log(authService.getAccessToken());
-      searchSpec(id).then(displaySpecDos);
+      searchSpec(id)
+        .then(await checkIfSaved(id))
+        .then(displaySpecDos);
       // window.location.replace(`./dossier.html?id=${id}`)
     });
   });
 }
 
 function displayDosModal(result) {
-  const modalSection = document.querySelector(".modal-wrapper");
-
   result.forEach((dossier) => {
     const card = document.createElement("button");
     card.setAttribute("class", "card card-in-modal");
@@ -448,4 +462,23 @@ function getAllSavedDossiersAndDisplay(allDossierId) {
         displaySavedDos(dossier);
       });
   });
+}
+
+function checkIfSaved(dossierId) {
+  const fullId = profile.sub;
+  const numId = fullId.split("|")[1];
+  return axios
+    .get(`http://127.0.0.1:5000/get-saveddossiers/${numId}`, {
+      headers: {
+        Authorization: `Bearer ${authService.getAccessToken()}`,
+      },
+    })
+    .then((response) => {
+      const storedDossiers = response.data[0].StoredDossier.split(", ");
+      if (storedDossiers.includes(`${dossierId}`)) {
+        isSaved = true;
+      } else {
+        isSaved = false;
+      }
+    });
 }
