@@ -1,30 +1,30 @@
-const moment = require("moment");
-const axios = require("axios").default;
-const { remote } = require("electron");
-const { get } = require("jquery");
-const { log } = require("console");
-const authService = remote.require("./services/auth-service");
+const moment = require('moment');
+const axios = require('axios').default;
+const { remote } = require('electron');
+const { get } = require('jquery');
+const { log } = require('console');
+const authService = remote.require('./services/auth-service');
 
 const profile = authService.getProfile();
 
-const specDosWrapper = document.querySelector(".spec-dos-wrapper");
+const specDosWrapper = document.querySelector('.spec-dos-wrapper');
 
-const section = document.querySelector("#section-all-dossiers");
-const zoekbalk = document.getElementById("zoekbalk");
-const opties = document.getElementById("search-type");
+const section = document.querySelector('#section-all-dossiers');
+const zoekbalk = document.getElementById('zoekbalk');
+const opties = document.getElementById('search-type');
 
-const appendDiv = document.querySelector(".append-time");
+const appendDiv = document.querySelector('.append-time');
 
-const modalSection = document.querySelector(".modal-wrapper");
+const modalSection = document.querySelector('.modal-wrapper');
 
 let isSaved = false;
 
 function showTime() {
-  const timeEl = document.getElementById("time");
-  const time = moment().format("HH:mm").toLowerCase();
+  const timeEl = document.getElementById('time');
+  const time = moment().format('HH:mm').toLowerCase();
 
-  const dateEl = document.getElementById("date");
-  const date = moment().format("ddd D MMM").toLowerCase();
+  const dateEl = document.getElementById('date');
+  const date = moment().format('ddd D MMM').toLowerCase();
 
   timeEl.innerHTML = time;
   dateEl.innerHTML = date;
@@ -34,38 +34,38 @@ showTime();
 
 setInterval(showTime, 1000);
 
-const addDossier = document.querySelector(".add-dossier");
-const modalAddDos = document.querySelector(".add-dossier-modal");
-const closeSpan = document.getElementsByClassName("close")[0];
+const addDossier = document.querySelector('.add-dossier');
+const modalAddDos = document.querySelector('.add-dossier-modal');
+const closeSpan = document.getElementsByClassName('close')[0];
 
-addDossier.addEventListener("click", () => {
-  modalAddDos.style.display = "block";
+addDossier.addEventListener('click', () => {
+  modalAddDos.style.display = 'block';
 });
 
-closeSpan.addEventListener("click", () => {
-  modalAddDos.style.display = "none";
+closeSpan.addEventListener('click', () => {
+  modalAddDos.style.display = 'none';
 });
 
-window.addEventListener("click", (e) => {
+window.addEventListener('click', (e) => {
   if (e.target == modalAddDos) {
-    modalAddDos.style.display = "none";
+    modalAddDos.style.display = 'none';
   }
 });
 
 function postDossier() {
-  const gesOpties = document.getElementById("geslacht");
+  const gesOpties = document.getElementById('geslacht');
   axios
     .post(
-      "http://127.0.0.1:5000/dossiers/",
+      'http://127.0.0.1:5000/dossiers/',
       {
-        z: document.getElementById("ziekte").value,
-        b: document.getElementById("behandeling").value,
-        g: document.getElementById("geslacht").value,
+        z: document.getElementById('ziekte').value,
+        b: document.getElementById('behandeling').value,
+        g: document.getElementById('geslacht').value,
         g: gesOpties.options[gesOpties.selectedIndex].value,
-        l: document.getElementById("leeftijd").value,
-        r: document.getElementById("resultaat").value,
-        k: document.getElementById("klachten").value.split(",", 2),
-        m: document.getElementById("medicijnen").value.split(",", 2),
+        l: document.getElementById('leeftijd').value,
+        r: document.getElementById('resultaat').value,
+        k: document.getElementById('klachten').value.split(',', 2),
+        m: document.getElementById('medicijnen').value.split(',', 2),
         a: profile.name,
       },
       {
@@ -75,73 +75,73 @@ function postDossier() {
       }
     )
     .then(() => {
-      alert("Dossier toegevoegd");
-      modalAddDos.style.display = "none";
+      alert('Dossier toegevoegd');
+      modalAddDos.style.display = 'none';
     })
     .catch(function (error) {
       console.log(error);
     });
 }
 
-const medicijnen = document.getElementById("medicijnen").value;
-const klachten = document.getElementById("klachten").value;
-form = document.querySelector("#submit-form");
-form.addEventListener("submit", (e) => {
+const medicijnen = document.getElementById('medicijnen').value;
+const klachten = document.getElementById('klachten').value;
+form = document.querySelector('#submit-form');
+form.addEventListener('submit', (e) => {
   e.preventDefault();
   postDossier();
 });
 
-const allDossiers = document.querySelector(".all-dossiers");
-const modalAllDos = document.querySelector(".all-dossier-modal");
+const allDossiers = document.querySelector('.all-dossiers');
+const modalAllDos = document.querySelector('.all-dossier-modal');
 
-allDossiers.addEventListener("click", async () => {
-  modalAllDos.style.display = "block";
-  modalSection.innerHTML = "";
+allDossiers.addEventListener('click', async () => {
+  modalAllDos.style.display = 'block';
+  modalSection.innerHTML = '';
   fetchAll().then(displayDosModal);
   await checkIfSaved(1);
 });
 
-closeSpan.addEventListener("click", () => {
-  modalAllDos.style.display = "none";
+closeSpan.addEventListener('click', () => {
+  modalAllDos.style.display = 'none';
 });
 
-window.addEventListener("click", (e) => {
+window.addEventListener('click', (e) => {
   if (e.target == modalAllDos) {
-    modalAllDos.style.display = "none";
+    modalAllDos.style.display = 'none';
   }
 });
 
-const savedDossiers = document.querySelector(".saved-dossiers");
-const modalSavedDos = document.querySelector(".saved-dossiers-modal");
+const savedDossiers = document.querySelector('.saved-dossiers');
+const modalSavedDos = document.querySelector('.saved-dossiers-modal');
 const modalSavedWrapper = document.querySelector(
-  ".saved-dossiers-modal-wrapper"
+  '.saved-dossiers-modal-wrapper'
 );
-const closeSavedDos = document.querySelector(".close-saved");
+const closeSavedDos = document.querySelector('.close-saved');
 
-savedDossiers.addEventListener("click", async () => {
+savedDossiers.addEventListener('click', async () => {
   const allDossierId = await getSavedDossiersId();
   if (allDossierId == null) {
-    alert("Je hebt geen opgeslagen dossiers");
+    alert('Je hebt geen opgeslagen dossiers');
   } else {
     getAllSavedDossiersAndDisplay(allDossierId);
-    modalSavedDos.style.display = "block";
+    modalSavedDos.style.display = 'block';
   }
 });
 
-window.addEventListener("click", (e) => {
+window.addEventListener('click', (e) => {
   if (e.target == modalSavedDos) {
-    modalSavedDos.style.display = "none";
-    modalSavedWrapper.innerHTML = "";
+    modalSavedDos.style.display = 'none';
+    modalSavedWrapper.innerHTML = '';
   }
 });
 
-closeSavedDos.addEventListener("click", () => {
-  modalSavedDos.style.display = "none";
-  modalSavedWrapper.innerHTML = "";
+closeSavedDos.addEventListener('click', () => {
+  modalSavedDos.style.display = 'none';
+  modalSavedWrapper.innerHTML = '';
 });
 
 function fetchAll() {
-  return fetch("http://127.0.0.1:5000/dossiers/all", {
+  return fetch('http://127.0.0.1:5000/dossiers/all', {
     headers: {
       Authorization: `Bearer ${authService.getAccessToken()}`,
     },
@@ -152,11 +152,11 @@ function fetchAll() {
     });
 }
 
-const nameContent = document.getElementById("name");
-const firstName = profile.name.split(" ")[0];
+const nameContent = document.getElementById('name');
+const firstName = profile.name.split(' ')[0];
 nameContent.textContent = `Welkom ${firstName}`;
 
-document.querySelector("#zoek-form").addEventListener("input", (e) => {
+document.querySelector('#zoek-form').addEventListener('input', (e) => {
   e.preventDefault();
   const searchTerm = zoekbalk.value;
   const optionVal = opties.options[opties.selectedIndex].value;
@@ -164,11 +164,11 @@ document.querySelector("#zoek-form").addEventListener("input", (e) => {
   if (optionVal) {
     search(searchTerm, optionVal).then(displayDos);
   } else {
-    alert("Kies godverdomme een optie om te kunnen zoeken!");
+    alert('Kies godverdomme een optie om te kunnen zoeken!');
   }
 
   if (!searchTerm) {
-    section.innerHTML = "";
+    section.innerHTML = '';
   }
 });
 
@@ -203,53 +203,95 @@ function searchSpec(id) {
 function displaySpecDos(result) {
   const dossier = result;
 
-  specDosWrapper.innerHTML = "";
+  specDosWrapper.innerHTML = '';
 
-  dossier.innerHTML = "";
+  dossier.innerHTML = '';
 
-  const card = document.createElement("div");
-  card.setAttribute("class", "card-spec");
+  const card = document.createElement('div');
+  card.setAttribute('class', 'card-spec');
 
-  const kruisje = document.createElement("button");
-  kruisje.setAttribute("class", "kruisje");
+  const kruisje = document.createElement('button');
+  kruisje.setAttribute('class', 'kruisje');
 
-  const zie = document.createElement("h1");
+  const zie = document.createElement('h1');
   zie.textContent = dossier.Ziekte;
 
-  const lee = document.createElement("p");
+  const lee = document.createElement('p');
   lee.textContent = `Leeftijd: ${dossier.Leeftijd}`;
 
-  const ges = document.createElement("p");
-  ges.setAttribute("class", "geslacht-spec");
+  const ges = document.createElement('p');
+  ges.setAttribute('class', 'geslacht-spec');
   ges.textContent = `Geslacht: ${dossier.Geslacht}`;
 
-  const res = document.createElement("p");
+  const res = document.createElement('p');
   res.textContent = `Resultaat: ${dossier.Resultaat}`;
 
-  const beh = document.createElement("p");
+  const beh = document.createElement('p');
   beh.textContent = `Behandeling: ${dossier.Behandeling}`;
 
-  const kla = document.createElement("p");
+  const kla = document.createElement('p');
   kla.textContent = `Klachten: ${dossier.k}`;
 
-  const med = document.createElement("p");
+  const med = document.createElement('p');
   med.textContent = `Medicijnen: ${dossier.m}`;
 
-  const cre = document.createElement("p");
+  const cre = document.createElement('p');
   cre.textContent = `Aangemaakt: ${dossier.Aangemaakt}`;
 
   if (!isSaved) {
-    const save = document.createElement("button");
-    save.textContent = "Sla dit dossier op";
+    const save = document.createElement('button');
+    save.textContent = 'Sla dit dossier op';
     card.appendChild(save);
+
+    save.addEventListener('click', async () => {
+      const preStoredDossiers = await getSavedDossiersId();
+      console.log(preStoredDossiers);
+      saveDossier(id, preStoredDossiers);
+    });
   } else {
-    const delSave = document.createElement("button");
-    delSave.textContent = "Verwijder dit dossier uit uw opgeslagen dossiers";
+    const delSave = document.createElement('button');
+    delSave.textContent = 'Verwijder dit dossier uit uw opgeslagen dossiers';
     card.appendChild(delSave);
+
+    delSave.addEventListener('click', async () => {
+      console.log(id);
+
+      const preStoredDossiers = await getSavedDossiersId();
+      preStoredArray = preStoredDossiers.split(', ');
+      console.log(preStoredArray);
+
+      const index = preStoredArray.indexOf(`${id}`);
+      console.log(index);
+
+      if (index > -1) {
+        preStoredArray.splice(index, 1);
+      }
+      preStoredString = preStoredArray.join(', ');
+      console.log(preStoredString);
+      const fullId = profile.sub;
+      const numId = fullId.split('|')[1];
+      await axios
+        .put(
+          'http://127.0.0.1:5000/del-saved-dossier',
+          {
+            userId: numId,
+            dosString: preStoredString,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${authService.getAccessToken()}`,
+            },
+          }
+        )
+        .then(alert('geluk!'))
+        .catch(function (error) {
+          console.log(error);
+        });
+    });
   }
 
-  const delBut = document.createElement("button");
-  delBut.textContent = "Verwijder dossier";
+  const delBut = document.createElement('button');
+  delBut.textContent = 'Verwijder dossier';
 
   specDosWrapper.appendChild(card);
   card.appendChild(zie);
@@ -264,62 +306,56 @@ function displaySpecDos(result) {
 
   const id = dossier.DossierId;
 
-  save.addEventListener("click", async () => {
-    const preStoredDossiers = await getSavedDossiersId();
-    console.log(preStoredDossiers);
-    saveDossier(id, preStoredDossiers);
-  });
-
-  delBut.addEventListener("click", (e) => {
+  delBut.addEventListener('click', (e) => {
     $.ajax({
-      type: "DELETE",
+      type: 'DELETE',
       url: `http://127.0.0.1:5000/dossiers/del/${id}`,
       headers: { Authorization: `Bearer ${authService.getAccessToken()}` },
     })
-      .then((specDosWrapper.innerHTML = ""))
-      .then(alert("Dossier verwijderd!"));
+      .then((specDosWrapper.innerHTML = ''))
+      .then(alert('Dossier verwijderd!'));
   });
 }
 
 function displayDos(result) {
   console.log(authService.getAccessToken());
 
-  section.innerHTML = "";
+  section.innerHTML = '';
 
   result.forEach((dossier) => {
-    const card = document.createElement("button");
-    card.setAttribute("class", "card");
+    const card = document.createElement('button');
+    card.setAttribute('class', 'card');
 
-    const kruisje = document.createElement("button");
-    kruisje.setAttribute("class", "kruisje");
+    const kruisje = document.createElement('button');
+    kruisje.setAttribute('class', 'kruisje');
 
-    const h1 = document.createElement("h1");
+    const h1 = document.createElement('h1');
     if (dossier.Ziekte != null) {
       h1.textContent = dossier.Ziekte;
     } else {
-      h1.textContent = "Geen ziekte gespecificeerd";
+      h1.textContent = 'Geen ziekte gespecificeerd';
     }
 
-    const h2 = document.createElement("h2");
+    const h2 = document.createElement('h2');
     if (dossier.Leeftijd != null) {
       h2.textContent = `Leeftijd: ${dossier.Leeftijd}`;
     } else {
-      h2.textContent = "Geen leeftijd gespecificeerd";
+      h2.textContent = 'Geen leeftijd gespecificeerd';
     }
 
-    const ges = document.createElement("h2");
-    ges.setAttribute("class", "geslacht");
+    const ges = document.createElement('h2');
+    ges.setAttribute('class', 'geslacht');
     if (dossier.Geslacht != null) {
       ges.textContent = `Geslacht: ${dossier.Geslacht}`;
     } else {
-      ges.textContent = "Geen geslacht gespecificeerd";
+      ges.textContent = 'Geen geslacht gespecificeerd';
     }
 
-    const p = document.createElement("p");
+    const p = document.createElement('p');
     if (dossier.Behandeling != null) {
       p.textContent = `${dossier.Behandeling}`;
     } else {
-      p.textContent = "Geen behandeling gespecificeerd";
+      p.textContent = 'Geen behandeling gespecificeerd';
     }
 
     const id = dossier.DossierId;
@@ -330,7 +366,7 @@ function displayDos(result) {
     card.appendChild(ges);
     card.appendChild(p);
 
-    card.addEventListener("click", async () => {
+    card.addEventListener('click', async () => {
       console.log(authService.getAccessToken());
       searchSpec(id)
         .then(await checkIfSaved(id))
@@ -342,23 +378,23 @@ function displayDos(result) {
 
 function displayDosModal(result) {
   result.forEach((dossier) => {
-    const card = document.createElement("button");
-    card.setAttribute("class", "card card-in-modal");
+    const card = document.createElement('button');
+    card.setAttribute('class', 'card card-in-modal');
 
-    const kruisje = document.createElement("button");
-    kruisje.setAttribute("class", "kruisje");
+    const kruisje = document.createElement('button');
+    kruisje.setAttribute('class', 'kruisje');
 
-    const h1 = document.createElement("h1");
+    const h1 = document.createElement('h1');
     h1.textContent = dossier.Ziekte;
 
-    const h2 = document.createElement("h2");
+    const h2 = document.createElement('h2');
     h2.textContent = `Leeftijd: ${dossier.Leeftijd}`;
 
-    const ges = document.createElement("h2");
-    ges.setAttribute("class", "geslacht");
+    const ges = document.createElement('h2');
+    ges.setAttribute('class', 'geslacht');
     ges.textContent = `Geslacht: ${dossier.Geslacht}`;
 
-    const p = document.createElement("p");
+    const p = document.createElement('p');
     p.textContent = `${dossier.Behandeling}`;
 
     const id = dossier.DossierId;
@@ -373,7 +409,7 @@ function displayDosModal(result) {
 
 async function saveDossier(id, preStoredDossiers) {
   const fullId = profile.sub;
-  const numId = fullId.split("|")[1];
+  const numId = fullId.split('|')[1];
 
   let dossierId = `${preStoredDossiers}, ${id}`;
 
@@ -383,7 +419,7 @@ async function saveDossier(id, preStoredDossiers) {
 
   await axios
     .put(
-      "http://127.0.0.1:5000/saveddossiers/",
+      'http://127.0.0.1:5000/saveddossiers/',
       {
         userId: numId,
         dossierId: dossierId,
@@ -394,7 +430,7 @@ async function saveDossier(id, preStoredDossiers) {
         },
       }
     )
-    .then(alert("geluk!"))
+    .then(alert('geluk!'))
     .catch(function (error) {
       console.log(error);
     });
@@ -402,7 +438,7 @@ async function saveDossier(id, preStoredDossiers) {
 
 function getSavedDossiersId() {
   const fullId = profile.sub;
-  const numId = fullId.split("|")[1];
+  const numId = fullId.split('|')[1];
   return axios
     .get(`http://127.0.0.1:5000/get-saveddossiers/${numId}`, {
       headers: {
@@ -415,25 +451,25 @@ function getSavedDossiersId() {
 }
 
 function displaySavedDos(dossier) {
-  const wrapper = document.querySelector(".saved-dossiers-modal-wrapper");
+  const wrapper = document.querySelector('.saved-dossiers-modal-wrapper');
 
-  const card = document.createElement("button");
-  card.setAttribute("class", "card card-in-modal");
+  const card = document.createElement('button');
+  card.setAttribute('class', 'card card-in-modal');
 
-  const kruisje = document.createElement("button");
-  kruisje.setAttribute("class", "kruisje");
+  const kruisje = document.createElement('button');
+  kruisje.setAttribute('class', 'kruisje');
 
-  const h1 = document.createElement("h1");
+  const h1 = document.createElement('h1');
   h1.textContent = dossier.Ziekte;
 
-  const h2 = document.createElement("h2");
+  const h2 = document.createElement('h2');
   h2.textContent = `Leeftijd: ${dossier.Leeftijd}`;
 
-  const ges = document.createElement("h2");
-  ges.setAttribute("class", "geslacht");
+  const ges = document.createElement('h2');
+  ges.setAttribute('class', 'geslacht');
   ges.textContent = `Geslacht: ${dossier.Geslacht}`;
 
-  const p = document.createElement("p");
+  const p = document.createElement('p');
   p.textContent = `${dossier.Behandeling}`;
 
   const id = dossier.DossierId;
@@ -446,7 +482,7 @@ function displaySavedDos(dossier) {
 }
 
 function getAllSavedDossiersAndDisplay(allDossierId) {
-  const allDossierIdArray = allDossierId.toString().split(", ");
+  const allDossierIdArray = allDossierId.toString().split(', ');
 
   console.log(allDossierIdArray);
 
@@ -466,7 +502,7 @@ function getAllSavedDossiersAndDisplay(allDossierId) {
 
 function checkIfSaved(dossierId) {
   const fullId = profile.sub;
-  const numId = fullId.split("|")[1];
+  const numId = fullId.split('|')[1];
   return axios
     .get(`http://127.0.0.1:5000/get-saveddossiers/${numId}`, {
       headers: {
@@ -474,7 +510,7 @@ function checkIfSaved(dossierId) {
       },
     })
     .then((response) => {
-      const storedDossiers = response.data[0].StoredDossier.split(", ");
+      const storedDossiers = response.data[0].StoredDossier.split(', ');
       if (storedDossiers.includes(`${dossierId}`)) {
         isSaved = true;
       } else {
