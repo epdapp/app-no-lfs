@@ -377,6 +377,15 @@ function displayDos(result) {
 }
 
 function displayDosModal(result) {
+  console.log(result);
+  let allIds = '';
+  result.forEach((dossier) => {
+    allIds += dossier.DossierId + ' ';
+  });
+
+  console.log(allIds.split(' '));
+
+  // const allDisplayedDossiers = result
   result.forEach((dossier) => {
     const card = document.createElement('button');
     card.setAttribute('class', 'card card-in-modal');
@@ -510,11 +519,20 @@ function checkIfSaved(dossierId) {
       },
     })
     .then((response) => {
-      const storedDossiers = response.data[0].StoredDossier.split(', ');
-      if (storedDossiers.includes(`${dossierId}`)) {
-        isSaved = true;
+      const storedDossiers = response.data[0].StoredDossier.toString();
+      if (storedDossiers.length <= 1) {
+        if (storedDossiers === `${dossierId}`) {
+          isSaved = true;
+        } else {
+          isSaved = false;
+        }
       } else {
-        isSaved = false;
+        storedDossier = storedDossiers.split(', ');
+        if (storedDossiers.includes(`${dossierId}`)) {
+          isSaved = true;
+        } else {
+          isSaved = false;
+        }
       }
     });
 }
