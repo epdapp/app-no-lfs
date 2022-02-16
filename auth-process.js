@@ -28,7 +28,7 @@ async function storeUserInDB() {
     )
     .then(console.log("gelukt!"))
     .catch(function (error) {
-      console.log("er is een error");
+      console.error(error);
     });
 }
 

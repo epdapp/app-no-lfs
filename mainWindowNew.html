@@ -25,12 +25,15 @@
         <div id="time"></div>
         <div id="date"></div>
       </div>
+      <div class="pic-wrapper">
+        <img src="" alt="" class="profile-pic" />
+      </div>
       <div class="menu-wrapper">
         <button class="add-dossier">
-          <img src="img/add-dossier.svg" alt="">
+          <img src="img/add-dossier.svg" alt="" />
         </button>
         <button class="all-dossiers">
-          <img src="img/alle-dossier.svg" alt="">
+          <img src="img/alle-dossier.svg" alt="" />
         </button>
         <button class="saved-dossiers">opgeslagen dossiers</button>
       </div>
@@ -41,26 +44,65 @@
           <span class="close">&times;</span>
           <p>Voeg hier een dossier toe</p>
           <form action="" id="submit-form">
-            <input type="text" name="z" id="ziekte" placeholder="Ziekte Patiënt" value=""></input>
-              <label name="Ziekte">Ziekte Patiënt</label>
-            <input type="text" name="b" id="behandeling" placeholder="Behandeling Ziekte" value=""></input>
-              <label name="Behandeling">Behandeling Ziekte</label>
+            <input
+              type="text"
+              name="z"
+              id="ziekte"
+              placeholder="Ziekte Patiënt"
+              value=""
+            />
+            <label name="Ziekte">Ziekte Patiënt</label>
+            <input
+              type="text"
+              name="b"
+              id="behandeling"
+              placeholder="Behandeling Ziekte"
+              value=""
+            />
+            <label name="Behandeling">Behandeling Ziekte</label>
             <select name="geslacht" id="geslacht" name="g">
               <option value="" disabled selected>Geslacht</option>
               <option value="vrouw">Vrouw</option>
               <option value="man">Man</option>
             </select>
-            <input type="text" name="l" id="leeftijd" placeholder="Leeftijd Patiënt" value=""></input>
-              <label name="Leeftijd">Leeftijd Patiënt</label>
-            <input type="text" name="k" id="klachten" placeholder="Klachten Patiënt" value=""></input>
-              <label name="klachten">Klachten Patiënt</label>
-            <input type="text" name="m" id="medicijnen" placeholder="Medicijnen gebruikt tijdens behandeling" value=""></input>
-              <label name="medicijnen" id="medicijnen-label">Medicijnen gebruikt tijdens behandeling</label>
-            <textarea type="text" name="r" id="resultaat" placeholder="Resultaat behandeling" value="" rows="1"></textarea>
-              <label name="resultaat" id="resultaat-label">Resultaat Behandeling</label>
-            <button type="submit" class="btn">
-              Voeg dossier toe
-            </button>
+            <input
+              type="text"
+              name="l"
+              id="leeftijd"
+              placeholder="Leeftijd Patiënt"
+              value=""
+            />
+            <label name="Leeftijd">Leeftijd Patiënt</label>
+            <input
+              type="text"
+              name="k"
+              id="klachten"
+              placeholder="Klachten Patiënt"
+              value=""
+            />
+            <label name="klachten">Klachten Patiënt</label>
+            <input
+              type="text"
+              name="m"
+              id="medicijnen"
+              placeholder="Medicijnen gebruikt tijdens behandeling"
+              value=""
+            />
+            <label name="medicijnen" id="medicijnen-label"
+              >Medicijnen gebruikt tijdens behandeling</label
+            >
+            <textarea
+              type="text"
+              name="r"
+              id="resultaat"
+              placeholder="Resultaat behandeling"
+              value=""
+              rows="1"
+            ></textarea>
+            <label name="resultaat" id="resultaat-label"
+              >Resultaat Behandeling</label
+            >
+            <button type="submit" class="btn">Voeg dossier toe</button>
           </form>
         </div>
       </div>
@@ -72,9 +114,7 @@
       <div class="saved-dossiers-modal modal">
         <div class="saved-dossiers-modal-content modal-content">
           <span class="close-saved close">&times;</span>
-          <div class="saved-dossiers-modal-wrapper">
-
-          </div>
+          <div class="saved-dossiers-modal-wrapper"></div>
         </div>
       </div>
       <div class="left">

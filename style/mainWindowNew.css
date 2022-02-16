@@ -33,6 +33,18 @@ aside {
   font-size: 20px;
 }
 
+.pic-wrapper {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: -3rem;
+}
+
+.profile-pic {
+  width: 25%;
+  margin: auto;
+  border-radius: 50%;
+}
+
 main {
   display: flex;
   flex-direction: row;
