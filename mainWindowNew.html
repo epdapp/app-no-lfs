@@ -27,11 +27,20 @@
       </div>
       <div class="pic-wrapper">
         <button class="button-wrapper-img">
-          <img src="" alt="" class="profile-pic">
-          </img>
+          <img src="" alt="" class="profile-pic" />
         </button>
-        <div class="dropdown"></div>
+        <div class="dropdown">
+          <button class="pic-in-dropdown"></button>
+          <ul>
+            <li>
+              <button class="open-change-pic-modal">
+                Verander Profielfoto
+              </button>
+            </li>
+          </ul>
+        </div>
       </div>
+
       <div class="menu-wrapper">
         <button class="add-dossier">
           <img src="img/add-dossier.svg" alt="" />
@@ -43,6 +52,16 @@
       </div>
     </aside>
     <main>
+      <div class="modal-change-pic">
+        <div class="modal-change-pic-content">
+          <form action="" class="change-pic-form">
+            <input type="text" name="changeImgInput" id="change-img-input" />
+            <button type="submit" class="change-profile-pic">
+              Verander Profielfoto
+            </button>
+          </form>
+        </div>
+      </div>
       <div class="add-dossier-modal modal">
         <div class="add-dossier-modal-content modal-content">
           <span class="close">&times;</span>

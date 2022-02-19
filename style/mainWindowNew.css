@@ -29,7 +29,7 @@ aside {
 
 .append-time div {
   margin-left: 2rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 20px;
 }
 
@@ -40,10 +40,12 @@ aside {
 }
 
 .profile-pic {
-  width: 80px;
-  height: 80px;
+  width: 50px;
+  height: 50px;
   margin: auto;
   border-radius: 50%;
+  padding: 0;
+  z-index: 10;
 }
 
 .profile-pic:hover {
@@ -54,6 +56,7 @@ aside {
   border: none;
   margin: auto;
   border-radius: 50%;
+  padding: 0;
 }
 
 .button-wrapper-img:focus {
@@ -62,6 +65,69 @@ aside {
 
 .dropdown {
   display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  margin: 5rem 0 0 180px;
+  border-radius: 3%;
+  width: 20%;
+  height: 30%;
+  z-index: 10;
+  background-color: #e2eaeb;
+}
+
+.pic-in-dropdown {
+  background-color: #fefe;
+  margin: 2% auto;
+  padding: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 20%;
+  height: 25%;
+  overflow: auto;
+  background-position: center;
+  background-size: cover;
+}
+
+.dropdown.shown {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 1rem 0 0 1rem;
+}
+
+.modal-change-pic {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-change-pic-content {
+  background-color: #fefefe;
+  margin: 2% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 90%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-change-pic-content input {
+  width: 60%;
+  height: 30px;
 }
 
 main {
@@ -75,7 +141,7 @@ main div {
 }
 
 .left::after {
-  content: '';
+  content: "";
   margin-top: 10rem;
   margin-left: 30rem;
   position: absolute;
@@ -89,12 +155,9 @@ main div {
   font-size: 36px;
 }
 
-.right {
-}
-
 main div h2 {
   margin-left: 3rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 12px;
   margin-top: 1rem;
 }
@@ -183,7 +246,7 @@ main div h2 {
 }
 .card-spec h1 {
   font-size: 1.5em;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .menu-wrapper {
@@ -258,7 +321,7 @@ form {
 }
 
 form label {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.2rem;
   margin-left: 43%;
   display: block;
@@ -275,7 +338,7 @@ form label {
 }
 
 #submit-form input {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   border: none;
   color: #333;
   font-size: 1.2rem;
@@ -311,7 +374,7 @@ form #ziekte {
 }
 
 #resultaat {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333;
   font-size: 1.2rem;
   margin: 0.3rem auto;
@@ -379,7 +442,7 @@ form #ziekte {
 }
 
 .card-in-modal::before {
-  content: '';
+  content: "";
   width: 50%;
   height: 0.5rem;
   border-radius: 0 20px 0 0;
