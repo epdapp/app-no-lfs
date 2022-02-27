@@ -293,7 +293,7 @@ function displaySpecDos(result) {
   if (!isSaved) {
     const save = document.createElement('button');
     const saveImage = document.createElement('img');
-    saveImage.src = '../img/niet-opgeslagen.svg';
+    saveImage.src = './img/niet-opgeslagen.svg';
 
     save.appendChild(saveImage);
     savedWrapper.appendChild(save);
@@ -302,11 +302,15 @@ function displaySpecDos(result) {
       const preStoredDossiers = await getSavedDossiersId();
       console.log(preStoredDossiers);
       saveDossier(id, preStoredDossiers);
+
+      window.setTimeout(() => {
+        window.location.reload();
+      }, 200);
     });
   } else {
     const delSave = document.createElement('button');
     const delSaveImage = document.createElement('img');
-    delSaveImage.src = '../img/opgeslagen.png';
+    delSaveImage.src = './img/opgeslagen.svg';
 
     delSave.appendChild(delSaveImage);
     savedWrapper.appendChild(delSave);
@@ -316,10 +320,8 @@ function displaySpecDos(result) {
 
       const preStoredDossiers = await getSavedDossiersId();
       preStoredArray = preStoredDossiers.split(', ');
-      console.log(preStoredArray);
 
       const index = preStoredArray.indexOf(`${id}`);
-      console.log(index);
 
       if (index > -1) {
         preStoredArray.splice(index, 1);
@@ -341,7 +343,12 @@ function displaySpecDos(result) {
             },
           }
         )
-        .then(alert('geluk!'))
+        .then(alert('Dossier niet meer opgeslagen!'))
+        .then(
+          window.setTimeout(() => {
+            window.location.reload(true);
+          }, 200)
+        )
         .catch(function (error) {
           console.log(error);
         });
