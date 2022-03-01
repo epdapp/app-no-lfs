@@ -445,7 +445,6 @@ function displayDos(result) {
 }
 
 function displayDosModal(result) {
-  debugger;
   console.log(result);
   let allIds = '';
   result.forEach((dossier) => {
