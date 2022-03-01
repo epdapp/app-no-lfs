@@ -16,6 +16,7 @@ const opties = document.getElementById('search-type');
 const appendDiv = document.querySelector('.append-time');
 
 const modalSection = document.querySelector('.modal-wrapper');
+const modalAllDosContent = document.querySelector('.all-dossier-modal-content');
 
 let isSaved = false;
 
@@ -145,9 +146,10 @@ const modalAllDos = document.querySelector('.all-dossier-modal');
 
 allDossiers.addEventListener('click', async () => {
   modalAllDos.style.display = 'block';
-  modalSection.innerHTML = '';
+  modalAllDosContent.innerHTML = '';
   fetchAll().then(displayDosModal);
   await checkIfSaved(1);
+  console.log('test');
 });
 
 closeSpan.addEventListener('click', () => {
@@ -443,6 +445,7 @@ function displayDos(result) {
 }
 
 function displayDosModal(result) {
+  debugger;
   console.log(result);
   let allIds = '';
   result.forEach((dossier) => {
@@ -453,6 +456,7 @@ function displayDosModal(result) {
 
   // const allDisplayedDossiers = result
   result.forEach((dossier) => {
+    const allDosMod = document.querySelector('.all-dossier-modal');
     const card = document.createElement('button');
     card.setAttribute('class', 'card card-in-modal');
 
@@ -472,13 +476,152 @@ function displayDosModal(result) {
     const p = document.createElement('p');
     p.textContent = `${dossier.Behandeling}`;
 
-    const id = dossier.DossierId;
-
-    modalSection.appendChild(card);
+    modalAllDosContent.appendChild(card);
     card.appendChild(h1);
     card.appendChild(h2);
     card.appendChild(ges);
     card.appendChild(p);
+
+    const specId = dossier.DossierId;
+
+    card.addEventListener('click', async () => {
+      modalAllDosContent.innerHTML = '';
+      const specDosRes = await axios.get(
+        `http://127.0.0.1:5000/dossiers/${specId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authService.getAccessToken()}`,
+          },
+        }
+      );
+      const specDos = specDosRes.data;
+
+      const card = document.createElement('div');
+      card.setAttribute('class', 'card-spec');
+
+      const kruisje = document.createElement('button');
+      kruisje.setAttribute('class', 'kruisje');
+
+      const zie = document.createElement('h1');
+      zie.textContent = specDos.Ziekte;
+
+      const lee = document.createElement('p');
+      lee.textContent = `Leeftijd: ${specDos.Leeftijd}`;
+
+      const ges = document.createElement('p');
+      ges.setAttribute('class', 'geslacht-spec');
+      ges.textContent = `Geslacht: ${specDos.Geslacht}`;
+
+      const res = document.createElement('p');
+      res.textContent = `Resultaat: ${specDos.Resultaat}`;
+
+      const beh = document.createElement('p');
+      beh.textContent = `Behandeling: ${specDos.Behandeling}`;
+
+      const kla = document.createElement('p');
+      kla.textContent = `Klachten: ${specDos.k}`;
+
+      const med = document.createElement('p');
+      med.textContent = `Medicijnen: ${specDos.m}`;
+
+      const cre = document.createElement('p');
+      cre.textContent = `Aangemaakt: ${specDos.Aangemaakt}`;
+
+      const savedWrapper = document.createElement('div');
+      savedWrapper.setAttribute('class', 'saved-wrapper');
+
+      if (!isSaved) {
+        const save = document.createElement('button');
+        const saveImage = document.createElement('img');
+        saveImage.src = './img/niet-opgeslagen.svg';
+
+        save.appendChild(saveImage);
+        savedWrapper.appendChild(save);
+
+        save.addEventListener('click', async () => {
+          const preStoredDossiers = await getSavedDossiersId();
+          console.log(preStoredDossiers);
+          saveDossier(id, preStoredDossiers);
+
+          window.setTimeout(() => {
+            window.location.reload();
+          }, 200);
+        });
+      } else {
+        const delSave = document.createElement('button');
+        const delSaveImage = document.createElement('img');
+        delSaveImage.src = './img/opgeslagen.svg';
+
+        delSave.appendChild(delSaveImage);
+        savedWrapper.appendChild(delSave);
+
+        delSave.addEventListener('click', async () => {
+          console.log(id);
+
+          const preStoredDossiers = await getSavedDossiersId();
+          preStoredArray = preStoredDossiers.split(', ');
+
+          const index = preStoredArray.indexOf(`${id}`);
+
+          if (index > -1) {
+            preStoredArray.splice(index, 1);
+          }
+          preStoredString = preStoredArray.join(', ');
+          console.log(preStoredString);
+          const fullId = profile.sub;
+          const numId = fullId.split('|')[1];
+          await axios
+            .put(
+              'http://127.0.0.1:5000/del-saved-dossier',
+              {
+                userId: numId,
+                dosString: preStoredString,
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${authService.getAccessToken()}`,
+                },
+              }
+            )
+            .then(alert('Dossier niet meer opgeslagen!'))
+            .then(
+              window.setTimeout(() => {
+                window.location.reload(true);
+              }, 200)
+            )
+            .catch(function (error) {
+              console.log(error);
+            });
+        });
+      }
+
+      const delBut = document.createElement('button');
+      delBut.textContent = 'Verwijder dossier';
+
+      modalAllDosContent.appendChild(card);
+      card.appendChild(zie);
+      card.appendChild(lee);
+      card.appendChild(ges);
+      card.appendChild(beh);
+      card.appendChild(res);
+      card.appendChild(kla);
+      card.appendChild(cre);
+      card.appendChild(med);
+      card.appendChild(delBut);
+      card.appendChild(savedWrapper);
+
+      const id = dossier.DossierId;
+
+      delBut.addEventListener('click', (e) => {
+        $.ajax({
+          type: 'DELETE',
+          url: `http://127.0.0.1:5000/dossiers/del/${id}`,
+          headers: { Authorization: `Bearer ${authService.getAccessToken()}` },
+        })
+          .then((specDosWrapper.innerHTML = ''))
+          .then(alert('Dossier verwijderd!'));
+      });
+    });
   });
 }
 
