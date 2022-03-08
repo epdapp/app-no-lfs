@@ -321,15 +321,22 @@ function displaySpecDos(result) {
       console.log(id);
 
       const preStoredDossiers = await getSavedDossiersId();
-      preStoredArray = preStoredDossiers.split(', ');
 
-      const index = preStoredArray.indexOf(`${id}`);
+      if (typeof preStoredDossiers === 'number') {
+        console.log('test');
+        preStoredString = '';
+      } else {
+        preStoredArray = preStoredDossiers.split(', ');
 
-      if (index > -1) {
-        preStoredArray.splice(index, 1);
+        const index = preStoredArray.indexOf(`${id}`);
+
+        if (index > -1) {
+          preStoredArray.splice(index, 1);
+        }
+        preStoredString = preStoredArray.join(', ');
+        console.log(preStoredString);
       }
-      preStoredString = preStoredArray.join(', ');
-      console.log(preStoredString);
+
       const fullId = profile.sub;
       const numId = fullId.split('|')[1];
       await axios
@@ -558,39 +565,26 @@ function displayDosModal(result) {
           console.log(id);
 
           const preStoredDossiers = await getSavedDossiersId();
-          preStoredArray = preStoredDossiers.split(', ');
 
-          const index = preStoredArray.indexOf(`${id}`);
+          console.log(typeof preStoredDossiers);
 
-          if (index > -1) {
-            preStoredArray.splice(index, 1);
+          if (typeof preStoredDossiers == number) {
+            preStoredString = '';
+            console.log(test);
+          } else {
+            preStoredArray = preStoredDossiers.split(', ');
+
+            const index = preStoredArray.indexOf(`${id}`);
+
+            if (index > -1) {
+              preStoredArray.splice(index, 1);
+            }
+            preStoredString = preStoredArray.join(', ');
+            console.log(preStoredString);
           }
-          preStoredString = preStoredArray.join(', ');
-          console.log(preStoredString);
+
           const fullId = profile.sub;
           const numId = fullId.split('|')[1];
-          await axios
-            .put(
-              'http://127.0.0.1:5000/del-saved-dossier',
-              {
-                userId: numId,
-                dosString: preStoredString,
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${authService.getAccessToken()}`,
-                },
-              }
-            )
-            .then(alert('Dossier niet meer opgeslagen!'))
-            .then(
-              window.setTimeout(() => {
-                window.location.reload(true);
-              }, 200)
-            )
-            .catch(function (error) {
-              console.log(error);
-            });
         });
       }
 
