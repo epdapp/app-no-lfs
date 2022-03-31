@@ -5,7 +5,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: #363636;
   overflow-y: hidden;
 }
 main {
@@ -13,7 +13,7 @@ main {
 }
 
 aside {
-  background-color: #e2eaeb;
+  background-color: #201f1f;
   position: fixed;
   top: 0;
   left: 0%;
@@ -29,8 +29,9 @@ aside {
 
 .append-time div {
   margin-left: 2rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 20px;
+  color: whitesmoke;
 }
 
 .pic-wrapper {
@@ -55,6 +56,8 @@ aside {
 .button-wrapper-img {
   border: none;
   margin: auto;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
   padding: 0;
 }
@@ -141,7 +144,7 @@ main div {
 }
 
 .left::after {
-  content: '';
+  content: "";
   margin-top: 10rem;
   margin-left: 30rem;
   position: absolute;
@@ -157,14 +160,15 @@ main div {
 
 main div h2 {
   margin-left: 3rem;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 12px;
   margin-top: 1rem;
+  color: #fff;
 }
 
 #zoekbalk {
   height: 38px;
-  width: 30em;
+  width: 30%;
   padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
   background-color: #fff;
   border: 1px solid #d1d1d1;
@@ -186,8 +190,9 @@ main div h2 {
 
 #search-type {
   height: 38px;
-  width: 4.8em;
-  padding: 6px 8px;
+  width: auto;
+  max-width: 7em;
+  padding: 6px 0px;
   text-align: center;
   background-color: #fff;
   border: 1px solid #d1d1d1;
@@ -196,7 +201,9 @@ main div h2 {
   box-sizing: border-box;
   position: fixed;
   right: 0;
-  margin: 1.7rem 4.5rem auto auto;
+  margin-top: 1.7rem;
+  margin-right: 7%;
+  /* margin: 1.7rem 4.7em 0em 0em; */
 }
 
 #search-type:focus {
@@ -208,8 +215,29 @@ main div h2 {
   background-color: #e2eaeb;
   border: none;
   border-radius: 35px;
-  width: 400px;
-  margin-top: 2rem;
+  width: 450px;
+  height: 30px;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: row;
+}
+
+.card h1 {
+  margin-top: 2px;
+  margin-left: 2%;
+}
+
+.card p {
+  margin-top: 6px;
+  margin-left: 40px;
+  text-align: left;
+}
+
+.card h2 {
+  margin-top: 7px;
+  margin-left: 40px;
+  text-align: left;
+  color: black;
 }
 
 .card:first-of-type {
@@ -246,7 +274,7 @@ main div h2 {
 }
 .card-spec h1 {
   font-size: 1.5em;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .menu-wrapper {
@@ -321,7 +349,7 @@ form {
 }
 
 form label {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 1.2rem;
   margin-left: 43%;
   display: block;
@@ -338,7 +366,7 @@ form label {
 }
 
 #submit-form input {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   border: none;
   color: #333;
   font-size: 1.2rem;
@@ -374,7 +402,7 @@ form #ziekte {
 }
 
 #resultaat {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color: #333;
   font-size: 1.2rem;
   margin: 0.3rem auto;
@@ -424,6 +452,7 @@ form #ziekte {
 
 .modal-wrapper {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   width: unset;
   height: unset;
@@ -431,18 +460,17 @@ form #ziekte {
 
 .card-in-modal {
   margin-top: 1rem;
-  width: 150px;
-  height: 105px;
-  margin: 0 auto;
-  margin-top: 50px;
-  position: relative;
+  width: 450px;
+  height: 30px;
+  margin: 0;
+  margin-top: 30px;
   background-color: #708090;
-  border-radius: 0 6px 6px 6px;
+  border-radius: 6px;
   text-align: left;
 }
 
-.card-in-modal::before {
-  content: '';
+/* .card-in-modal::before {
+  content: "";
   width: 50%;
   height: 0.5rem;
   border-radius: 0 20px 0 0;
@@ -450,7 +478,7 @@ form #ziekte {
   position: absolute;
   top: -8px;
   left: 0px;
-}
+} */
 
 .card-in-modal:first-of-type {
   margin-top: 3rem;
@@ -461,6 +489,10 @@ form #ziekte {
 .card-in-modal p {
   font-size: 11px;
   text-align: left;
+}
+
+.card-in-modal h1 {
+  margin-top: 7px;
 }
 
 #section-all-dossiers {
