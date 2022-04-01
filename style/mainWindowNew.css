@@ -29,7 +29,7 @@ aside {
 
 .append-time div {
   margin-left: 2rem;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 20px;
   color: whitesmoke;
 }
@@ -76,7 +76,7 @@ aside {
   width: 20%;
   height: 30%;
   z-index: 10;
-  background-color: #e2eaeb;
+  background-color: rgb(114, 114, 114);
 }
 
 .pic-in-dropdown {
@@ -115,7 +115,7 @@ aside {
 }
 
 .modal-change-pic-content {
-  background-color: #fefefe;
+  background-color: whitesmoke;
   margin: 2% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -129,7 +129,7 @@ aside {
 }
 
 .modal-change-pic-content input {
-  width: 60%;
+  width: 100%;
   height: 30px;
 }
 
@@ -144,7 +144,7 @@ main div {
 }
 
 .left::after {
-  content: "";
+  content: '';
   margin-top: 10rem;
   margin-left: 30rem;
   position: absolute;
@@ -160,7 +160,7 @@ main div {
 
 main div h2 {
   margin-left: 3rem;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 12px;
   margin-top: 1rem;
   color: #fff;
@@ -212,31 +212,34 @@ main div h2 {
 }
 
 .card {
-  background-color: #e2eaeb;
+  background-color: #fff;
   border: none;
-  border-radius: 35px;
+  border-radius: 15px;
   width: 450px;
-  height: 30px;
   margin-top: 1rem;
   display: flex;
   flex-direction: row;
 }
 
 .card h1 {
-  margin-top: 2px;
-  margin-left: 2%;
+  margin-top: 3%;
+  text-align: left;
+  margin-left: 8px;
+  width: 100px;
 }
 
 .card p {
-  margin-top: 6px;
-  margin-left: 40px;
+  margin-top: 4%;
   text-align: left;
+  width: 100px;
+  margin-left: 20px;
 }
 
 .card h2 {
-  margin-top: 7px;
-  margin-left: 40px;
+  margin-top: 4%;
   text-align: left;
+  width: 100px;
+  margin-left: 20px;
   color: black;
 }
 
@@ -254,7 +257,7 @@ main div h2 {
 }
 
 .card-spec {
-  background-color: #e2eaeb;
+  background-color: #ffffff;
   border: none;
   border-radius: 35px;
   width: 400px;
@@ -274,7 +277,7 @@ main div h2 {
 }
 .card-spec h1 {
   font-size: 1.5em;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .menu-wrapper {
@@ -349,7 +352,7 @@ form {
 }
 
 form label {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   margin-left: 43%;
   display: block;
@@ -366,7 +369,7 @@ form label {
 }
 
 #submit-form input {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   border: none;
   color: #333;
   font-size: 1.2rem;
@@ -402,7 +405,7 @@ form #ziekte {
 }
 
 #resultaat {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: #333;
   font-size: 1.2rem;
   margin: 0.3rem auto;
@@ -493,6 +496,11 @@ form #ziekte {
 
 .card-in-modal h1 {
   margin-top: 7px;
+}
+
+.card-in-modal h2,
+.card-in-modal p {
+  margin-top: 8px;
 }
 
 #section-all-dossiers {
