@@ -18,17 +18,18 @@
     <link rel="stylesheet" href="style/mainWindowNew.css" />
   </head>
   <body>
-    <header></header>
-    <div class="menu"></div>
     <aside>
+      <!-- Time in side-menu -->
       <div class="append-time">
         <div id="time"></div>
         <div id="date"></div>
       </div>
+      <!-- Profile pic in side-menu -->
       <div class="pic-wrapper">
         <button class="button-wrapper-img">
           <img src="" alt="" class="profile-pic" />
         </button>
+        <!-- Change pic menu -->
         <div class="dropdown">
           <button class="pic-in-dropdown"></button>
           <ul>
@@ -40,6 +41,7 @@
           </ul>
         </div>
       </div>
+      <!-- The three buttons wrapper -->
       <div class="menu-wrapper">
         <button class="add-dossier">
           <img src="img/add-dossier.svg" alt="" />
@@ -147,10 +149,12 @@
           <div class="saved-dossiers-modal-wrapper"></div>
         </div>
       </div>
+      <!-- Left side of the screen (mostly dynamic rendered) -->
       <div class="left">
         <h2 id="name"></h2>
         <div class="spec-dos-wrapper"></div>
       </div>
+      <!-- Right side of the screen -->
       <div class="right">
         <form action="" id="zoek-form">
           <input type="search" placeholder="Zoeken in dossiers" id="zoekbalk" />

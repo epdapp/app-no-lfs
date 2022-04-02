@@ -1,12 +1,14 @@
+// Handle imports, remote.require is a electron thing
 const moment = require('moment');
 const axios = require('axios').default;
 const { remote } = require('electron');
 const authService = remote.require('./services/auth-service');
 const authProcess = remote.require('./auth-process');
 
+// Get some basic information
 const profile = authService.getProfile();
 const fullId = profile.sub;
-const numId = fullId.split('|')[1];
+const numId = fullId.split('|')[1]; // The fullId is splitted so "AUTH0|" doesn't get in front of the id
 
 const specDosWrapper = document.querySelector('.spec-dos-wrapper');
 
@@ -14,13 +16,11 @@ const section = document.querySelector('#section-all-dossiers');
 const zoekbalk = document.getElementById('zoekbalk');
 const opties = document.getElementById('search-type');
 
-const appendDiv = document.querySelector('.append-time');
-
-const modalSection = document.querySelector('.modal-wrapper');
 const modalAllDosContent = document.querySelector('.all-dossier-modal-content');
 
-let isSaved = false;
+let isSaved = false; // This is to check if a dossier is saved or not
 
+// Handle logout button
 document.getElementById('logout').addEventListener('click', async () => {
   const curWin = remote.getCurrentWindow();
   await authProcess.createLogoutWindow();
@@ -28,6 +28,7 @@ document.getElementById('logout').addEventListener('click', async () => {
   curWin.close();
 });
 
+// Show the current time, on an interval of one sec (moment is used for this)
 function showTime() {
   const timeEl = document.getElementById('time');
   const time = moment().format('HH:mm').toLowerCase();
@@ -43,6 +44,7 @@ showTime();
 
 setInterval(showTime, 1000);
 
+// Make a get request for the picture
 function getPicture() {
   return axios
     .get(`http://127.0.0.1:5000/profilepicture/${numId}`, {
@@ -55,6 +57,7 @@ function getPicture() {
     });
 }
 
+// Get the picture and show on the screen
 async function showPicture() {
   const pic = await getPicture();
   console.log(pic);
@@ -67,25 +70,25 @@ async function showPicture() {
 
 showPicture();
 
+// Watch is the pic gets clicked on, if so; show dropdown menu
 const buttonWrapperImage = document.querySelector('.button-wrapper-img');
 const dropDown = document.querySelector('.dropdown');
 
 buttonWrapperImage.addEventListener('click', () => {
   dropDown.classList.toggle('shown');
-  console.log(dropDown.outerHTML);
 });
 
+//  If clicked on change pic open the modal
 const modalChangePic = document.querySelector('.modal-change-pic');
-
 document
   .querySelector('.open-change-pic-modal')
   .addEventListener('click', () => {
     modalChangePic.style.display = 'block';
   });
 
+// On click change call the updatePicture function
 const changePic = document.querySelector('.change-profile-pic');
-
-changePic.addEventListener('click', async (e) => {
+changePic.addEventListener('click', async () => {
   await updatePicture();
 });
 
@@ -101,6 +104,7 @@ closeSpan.addEventListener('click', () => {
   modalAddDos.style.display = 'none';
 });
 
+// On click outside the modal content, close modal
 window.addEventListener('click', (e) => {
   if (e.target == modalAddDos) {
     modalAddDos.style.display = 'none';
@@ -110,15 +114,16 @@ window.addEventListener('click', (e) => {
   }
 });
 
+// Post the dossier function
 function postDossier() {
   const gesOpties = document.getElementById('geslacht');
   axios
     .post(
       'http://127.0.0.1:5000/dossiers/',
       {
+        // Get the values from the form
         z: document.getElementById('ziekte').value,
         b: document.getElementById('behandeling').value,
-        g: document.getElementById('geslacht').value,
         g: gesOpties.options[gesOpties.selectedIndex].value,
         l: document.getElementById('leeftijd').value,
         r: document.getElementById('resultaat').value,
@@ -141,14 +146,14 @@ function postDossier() {
     });
 }
 
-const medicijnen = document.getElementById('medicijnen').value;
-const klachten = document.getElementById('klachten').value;
+// On form submit, post dossier
 form = document.querySelector('#submit-form');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   postDossier();
 });
 
+// Get the modals and on click fetch and display all dossiers
 const allDossiers = document.querySelector('.all-dossiers');
 const modalAllDos = document.querySelector('.all-dossier-modal');
 
@@ -157,7 +162,6 @@ allDossiers.addEventListener('click', async () => {
   modalAllDosContent.innerHTML = '';
   fetchAll().then(displayDosModal);
   await checkIfSaved(1);
-  console.log('test');
 });
 
 closeSpan.addEventListener('click', () => {
@@ -170,6 +174,7 @@ window.addEventListener('click', (e) => {
   }
 });
 
+// Get the savedDossiers modal and display the saved dossiers
 const savedDossiers = document.querySelector('.saved-dossiers');
 const modalSavedDos = document.querySelector('.saved-dossiers-modal');
 const modalSavedWrapper = document.querySelector(
@@ -199,6 +204,7 @@ closeSavedDos.addEventListener('click', () => {
   modalSavedWrapper.innerHTML = '';
 });
 
+// Fetch all dossiers function
 function fetchAll() {
   return fetch('http://127.0.0.1:5000/dossiers/all', {
     headers: {
@@ -211,10 +217,12 @@ function fetchAll() {
     });
 }
 
+// Get the name and display the name of the doctor
 const nameContent = document.getElementById('name');
 const firstName = profile.name.split(' ')[0];
 nameContent.textContent = `Welkom ${firstName}`;
 
+// Handle the searching, listen for input and on change; call the search function and the display function
 document.querySelector('#zoek-form').addEventListener('input', (e) => {
   e.preventDefault();
   const searchTerm = zoekbalk.value;
@@ -223,14 +231,16 @@ document.querySelector('#zoek-form').addEventListener('input', (e) => {
   if (optionVal) {
     search(searchTerm, optionVal).then(displayDos);
   } else {
-    alert('Kies godverdomme een optie om te kunnen zoeken!');
+    alert('Kies een optie om te kunnen zoeken.');
   }
 
+  // if there is no searchterm, display no dossier on the left side
   if (!searchTerm) {
     section.innerHTML = '';
   }
 });
 
+// The search function
 function search(searchTerm, optionVal) {
   return fetch(
     `http://127.0.0.1:5000/dossiers/search?${optionVal}=${searchTerm}`,
@@ -246,6 +256,7 @@ function search(searchTerm, optionVal) {
     });
 }
 
+// Get specific dossier
 function searchSpec(id) {
   return fetch(`http://127.0.0.1:5000/dossiers/${id}`, {
     headers: {
@@ -259,13 +270,15 @@ function searchSpec(id) {
     });
 }
 
+// Display the specific dossier on the left side
 function displaySpecDos(result) {
   const dossier = result;
 
+  // Empty the html
   specDosWrapper.innerHTML = '';
-
   dossier.innerHTML = '';
 
+  // Dynamically create and display the dossier
   const card = document.createElement('div');
   card.setAttribute('class', 'card-spec');
 
@@ -300,6 +313,7 @@ function displaySpecDos(result) {
   const savedWrapper = document.createElement('div');
   savedWrapper.setAttribute('class', 'saved-wrapper');
 
+  // Check if saved and based on that, display unsave or save image
   if (!isSaved) {
     const save = document.createElement('button');
     const saveImage = document.createElement('img');
@@ -375,6 +389,7 @@ function displaySpecDos(result) {
   const delBut = document.createElement('button');
   delBut.textContent = 'Verwijder dossier';
 
+  // append everything to the body of the html
   specDosWrapper.appendChild(card);
   card.appendChild(zie);
   card.appendChild(lee);
@@ -389,7 +404,8 @@ function displaySpecDos(result) {
 
   const id = dossier.DossierId;
 
-  delBut.addEventListener('click', (e) => {
+  // Delete dossier with ajax, planning on changing this to axios
+  delBut.addEventListener('click', () => {
     $.ajax({
       type: 'DELETE',
       url: `http://127.0.0.1:5000/dossiers/del/${id}`,
@@ -400,9 +416,8 @@ function displaySpecDos(result) {
   });
 }
 
+// display dossiers function
 function displayDos(result) {
-  console.log(authService.getAccessToken());
-
   section.innerHTML = '';
 
   result.forEach((dossier) => {
@@ -460,15 +475,12 @@ function displayDos(result) {
 }
 
 function displayDosModal(result) {
-  console.log(result);
   let allIds = '';
   result.forEach((dossier) => {
     allIds += dossier.DossierId + ' ';
   });
 
-  console.log(allIds.split(' '));
-
-  // const allDisplayedDossiers = result
+  // Display every dossier
   result.forEach((dossier) => {
     const allDosMod = document.querySelector('.all-dossier-modal');
     const card = document.createElement('button');
@@ -626,6 +638,7 @@ function displayDosModal(result) {
   });
 }
 
+// Save dossier function
 async function saveDossier(id, preStoredDossiers) {
   const fullId = profile.sub;
   const numId = fullId.split('|')[1];
@@ -655,6 +668,7 @@ async function saveDossier(id, preStoredDossiers) {
     });
 }
 
+// Get the id's of the saved dossiers
 function getSavedDossiersId() {
   return axios
     .get(`http://127.0.0.1:5000/get-saveddossiers/${numId}`, {
@@ -667,6 +681,7 @@ function getSavedDossiersId() {
     });
 }
 
+// function to display the saved dossiers
 function displaySavedDos(dossier) {
   const wrapper = document.querySelector('.saved-dossiers-modal-wrapper');
 
@@ -698,6 +713,7 @@ function displaySavedDos(dossier) {
   card.appendChild(p);
 }
 
+// fetch and display saved dossiers
 function getAllSavedDossiersAndDisplay(allDossierId) {
   const allDossierIdArray = allDossierId.toString().split(', ');
 
@@ -717,6 +733,7 @@ function getAllSavedDossiersAndDisplay(allDossierId) {
   });
 }
 
+// Check if a dossier is saved
 function checkIfSaved(dossierId) {
   return axios
     .get(`http://127.0.0.1:5000/get-saveddossiers/${numId}`, {
@@ -751,6 +768,7 @@ function checkIfSaved(dossierId) {
     });
 }
 
+// Update the picture
 function updatePicture() {
   axios
     .put(
