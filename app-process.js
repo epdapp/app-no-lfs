@@ -1,5 +1,5 @@
-const { BrowserWindow } = require("electron");
-const authService = require("./services/auth-service");
+const { BrowserWindow } = require('electron');
+const authService = require('./services/auth-service');
 
 function createAppWindow() {
   let win = new BrowserWindow({
@@ -13,9 +13,9 @@ function createAppWindow() {
 
   win.maximize();
 
-  win.loadFile("./mainwindow.html");
+  win.loadFile('./mainwindowNew.html');
 
-  win.on("closed", () => {
+  win.on('closed', () => {
     win = null;
   });
 }

@@ -124,13 +124,19 @@ aside {
   overflow: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 
 .modal-change-pic-content input {
-  width: 100%;
+  width: 500%;
+  margin: auto;
   height: 30px;
+}
+
+#logout {
+  margin-top: 18rem;
+  margin-left: 3.8rem;
 }
 
 main {

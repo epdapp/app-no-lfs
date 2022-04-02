@@ -2,6 +2,7 @@ const moment = require('moment');
 const axios = require('axios').default;
 const { remote } = require('electron');
 const authService = remote.require('./services/auth-service');
+const authProcess = remote.require('./auth-process');
 
 const profile = authService.getProfile();
 const fullId = profile.sub;
@@ -19,6 +20,13 @@ const modalSection = document.querySelector('.modal-wrapper');
 const modalAllDosContent = document.querySelector('.all-dossier-modal-content');
 
 let isSaved = false;
+
+document.getElementById('logout').addEventListener('click', async () => {
+  const curWin = remote.getCurrentWindow();
+  await authProcess.createLogoutWindow();
+  await authProcess.createAuthWindow();
+  curWin.close();
+});
 
 function showTime() {
   const timeEl = document.getElementById('time');
@@ -717,20 +725,28 @@ function checkIfSaved(dossierId) {
       },
     })
     .then((response) => {
-      const storedDossiers = response.data[0].StoredDossier.toString();
-      if (storedDossiers.length <= 1) {
-        if (storedDossiers === `${dossierId}`) {
-          isSaved = true;
+      let storedDossiers = response.data[0].StoredDossier;
+
+      console.log(storedDossiers);
+
+      if (storedDossiers !== undefined) {
+        storedDossiers = storedDossiers.toString();
+        if (storedDossiers.length <= 1) {
+          if (storedDossiers === `${dossierId}`) {
+            isSaved = true;
+          } else {
+            isSaved = false;
+          }
         } else {
-          isSaved = false;
+          storedDossier = storedDossiers.toString().split(', ');
+          if (storedDossiers.includes(`${dossierId}`)) {
+            isSaved = true;
+          } else {
+            isSaved = false;
+          }
         }
       } else {
-        storedDossier = storedDossiers.split(', ');
-        if (storedDossiers.includes(`${dossierId}`)) {
-          isSaved = true;
-        } else {
-          isSaved = false;
-        }
+        return;
       }
     });
 }
